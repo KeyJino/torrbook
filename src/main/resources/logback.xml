@@ -28,9 +28,9 @@
 
 	<logger name="org.springframework" level="INFO" />
 
-	<logger name="by.intexsoft.conveyor" level="DEBUG"/>
+	<logger name="by.intexsoft.kova" level="DEBUG"/>
 
-	<root level="TRACE">
+	<root level="DEBUG">
 		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="FILE" />
 	</root>

@@ -3,7 +3,7 @@ plugins {
     id 'net.ltgt.apt' version '0.10'
 }
 
-group 'by.intexsoft.ryabov'
+group 'by.intexsoft.kova'
 
 sourceCompatibility = 1.8
 
