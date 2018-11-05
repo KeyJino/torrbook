@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class UserService implements IUserService {
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private final
+    UserRepository userRepository;
+
+    private final
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
