@@ -2,6 +2,7 @@ package by.intexsoft.kova.service.impl;
 
 import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.UserRepository;
+import by.intexsoft.kova.service.IService;
 import by.intexsoft.kova.service.IUserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,8 +11,12 @@ import java.util.List;
 
 @Service
 public class UserService implements IUserService {
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private final
+    UserRepository userRepository;
+
+    private final
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -25,8 +30,26 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User findById(int id) {
+        return userRepository.findById(id).get();
+    }
+
+    @Override
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public User remove(User user) {
+        userRepository.delete(user);
+        return user;
+    }
+
+    @Override
+    public User removeById(int id) {
+        User user = findById(id);
+        userRepository.deleteById(id);
+        return user;
     }
 
     @Override

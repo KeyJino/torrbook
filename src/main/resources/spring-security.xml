@@ -9,7 +9,7 @@
     </b:bean>
 
     <http authentication-manager-ref="manager" auto-config="true" use-expressions="true">
-        <intercept-url pattern="/api/**" access="hasAuthority('USER')"/>
+        <intercept-url pattern="/api/**" access="permitAll"/>
         <security:form-login login-processing-url="/login"
                              username-parameter="username"
                              password-parameter="password"/>
@@ -18,8 +18,9 @@
                              <!--always-use-default-target="false"/>-->
         <!--<security:logout logout-url="/logout"-->
                          <!--logout-success-url="/"/>-->
-        <security:logout logout-url="/api/vitya/" logout-success-url="/api/"/>
+        <!--<security:logout logout-url="/api/vitya/" logout-success-url="/api/"/>-->
         <!--<logout logout-success-url="/login?logout" />-->
+        <csrf disabled="true"/>
     </http>
 
     <b:bean id="encoder"

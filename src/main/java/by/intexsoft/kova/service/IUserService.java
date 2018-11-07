@@ -8,15 +8,18 @@ import java.util.List;
  * Service for working with {@link User}
  */
 public interface IUserService {
+
+    User findById(int id);
+
+    List<User> findAll();
+
+    User removeById(int id);
+
+    User remove(User object);
     /**
      * Find user by name
      */
     User findByUsername(String username);
-
-    /**
-     * Find all user
-     */
-    List<User> findAll();
 
     /**
      * Add user to DB

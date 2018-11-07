@@ -13,7 +13,7 @@
 		<file>${catalina.base}/logs/conveyor/application.log</file>
 		<rollingPolicy
 				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${catalina.base}/logs/torrbook/%d{yyyy/MM}/application.gz
+			<fileNamePattern>${catalina.base}/logs/conveyor/%d{yyyy/MM}/application.gz
 			</fileNamePattern>
 			<maxHistory>30</maxHistory>
 			<totalSizeCap>3GB</totalSizeCap>
@@ -30,7 +30,7 @@
 
 	<logger name="by.intexsoft.kova" level="DEBUG"/>
 
-	<root level="DEBUG">
+	<root level="TRACE">
 		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="FILE" />
 	</root>
