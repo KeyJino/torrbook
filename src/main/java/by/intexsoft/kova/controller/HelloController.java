@@ -17,6 +17,6 @@ public class HelloController {
 
     @GetMapping
     public String message() {
-        return bookService.findBookById(1).author;
+        return bookService.findById(1).author;
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.*;
 
 /**
- * Holder is intermediate table. Have 3 fields:
+ * Record is intermediate table. Have 3 fields:
  * id - № transaction,
  * details - details of the transaction,
  * book_id - book's id from books,
@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "holder")
-public class Holder extends AbstractPersistable<Integer> {
+public class Record extends AbstractPersistable<Integer> {
 
     /**
      * Some details of transaction;
