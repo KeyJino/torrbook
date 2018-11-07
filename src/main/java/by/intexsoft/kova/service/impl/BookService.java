@@ -34,7 +34,7 @@ public class BookService implements IBookService{
 
     /**
      * Finding all books in the repository.
-     * @return List of {@link Book}
+     * @return List of {@link Book}.
      */
     @Override
     public List<Book> findAll() {
@@ -43,7 +43,7 @@ public class BookService implements IBookService{
 
     /**
      * Method finding {@link Book} by here title.
-     * @param title of {@link Book}
+     * @param title of {@link Book}.
      * @return all {@link Book} which has this title.
      */
     @Override
@@ -59,7 +59,7 @@ public class BookService implements IBookService{
 
     /**
      * Method finding {@link Book} by here author.
-     * @param author of {@link Book}
+     * @param author of {@link Book}.
      * @return all {@link Book} which has this author.
      */
     @Override
@@ -75,7 +75,7 @@ public class BookService implements IBookService{
 
     /**
      * Method finding {@link Book} by here description.
-     * @param description of {@link Book}
+     * @param description of {@link Book}.
      * @return all {@link Book} which has this description.
      */
     @Override
@@ -90,12 +90,12 @@ public class BookService implements IBookService{
     }
 
     /**
-     * Method create {@link Book}
-     * @param title of a {@link Book}
-     * @param author of a {@link Book}
-     * @param description of a {@link Book}
-     * @param user who is owner of a {@link Book}
-     * @return just creating a {@link Book}
+     * Method create {@link Book}.
+     * @param title of a {@link Book}.
+     * @param author of a {@link Book}.
+     * @param description of a {@link Book}.
+     * @param user who is owner of a {@link Book}.
+     * @return just creating a {@link Book}.
      */
     @Override
     public Book create(String title, String author, String description, User user) {
@@ -111,7 +111,7 @@ public class BookService implements IBookService{
     /**
      * Service method delete {@link Book} from repository.
      * @param book will be deleted.
-     * @return just deleting {@link Book}
+     * @return just deleting {@link Book}.
      */
     @Override
     public Book remove(Book book) {
@@ -123,7 +123,7 @@ public class BookService implements IBookService{
     /**
      * Service method delete {@link Book} from repository, but using book's ID for this.
      * @param id of a {@link Book}'s which will be deleting.
-     * @return just deleting {@link Book}
+     * @return just deleting {@link Book}.
      */
     @Override
     public Book removeById(int id) {

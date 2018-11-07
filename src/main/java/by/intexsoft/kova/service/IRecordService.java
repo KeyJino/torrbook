@@ -8,6 +8,14 @@ import java.util.List;
 
 public interface IRecordService {
 
+    Record findById(int id);
+
+    List<Record> findAll();
+
+    Record removeById(int id);
+
+    Record remove(Record object);
+
     Record create(Book bookId, User newOwnerUserId);
 
     Record create(Book bookId, User newOwnerUserId, String description);
