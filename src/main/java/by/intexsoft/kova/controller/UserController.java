@@ -1,11 +1,9 @@
 package by.intexsoft.kova.controller;
 
 import by.intexsoft.kova.entity.User;
-import by.intexsoft.kova.service.IService;
 import by.intexsoft.kova.service.IUserService;
 import by.intexsoft.kova.service.impl.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +37,10 @@ public class UserController {
 //    public List<User> getAll(){
 //        return userService.findAll();
 //    }
+    @GetMapping("/")
+    public List<User> getAll(){
+        return userService.findAll();
+    }
 
     @GetMapping("/role")
     public String getRoleTitle() {

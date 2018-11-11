@@ -25,4 +25,8 @@ public interface IUserService {
      * Add user to DB
      */
     User save(User user);
+
+    void inscriptionBookGiven(User user);
+
+    void inscriptionBookTaken(User user);
 }

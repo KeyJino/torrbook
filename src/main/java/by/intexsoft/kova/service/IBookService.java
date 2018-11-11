@@ -7,26 +7,34 @@ import java.util.List;
 
 public interface IBookService {
 
-    Book findById(int id);
-
-    List<Book> findAll();
-
     Book removeById(int id);
 
     Book remove(Book book);
 
-    Book create(String title, String author, String description, User user);
+    Book save(Book book);
 
-    Book updateBookTitle(String title, String newTitle);
+    Book findById(int id);
 
-    Book updateBookAuthor(String author, String newAuthor);
+    List<Book> findAll();
 
-    Book updateShotDescription(String description, String newDescription);
+    List<Book> findByAuthor(String title);
 
-    List<Book> findBookByTitle(String title);
+    List<Book> findByDescription(String description);
 
-    List<Book> findBookByAuthor(String author);
+    List<Book> findByTitle(String title);
 
-    List<Book> findBookByDescription(String description);
+    Book changeStateById(int id);
+
+//    Book updateBookTitle(String title, String newTitle);
+//
+//    Book updateBookAuthor(String author, String newAuthor);
+//
+//    Book updateShotDescription(String description, String newDescription);
+//
+//    List<Book> findBookByTitle(String title);
+//
+//    List<Book> findBookByAuthor(String author);
+//
+//    List<Book> findBookByDescription(String description);
 
 }

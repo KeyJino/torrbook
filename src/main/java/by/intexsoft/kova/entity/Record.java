@@ -7,7 +7,7 @@ import javax.persistence.*;
 /**
  * Record is intermediate table. Have 3 fields:
  * id - № transaction,
- * details - details of the transaction,
+ * description - description of the transaction,
  * book_id - book's id from books,
  * user_id - user's id who took this book
  */
@@ -16,10 +16,10 @@ import javax.persistence.*;
 public class Record extends AbstractPersistable<Integer> {
 
     /**
-     * Some details of transaction;
+     * Some description of transaction;
      */
-    @Column(name = "details")
-    public String details;
+    @Column(name = "description")
+    public String description;
 
     /**
      * This book given away;
