@@ -10,7 +10,7 @@
     "react-router-dom": "^4.2.2"
   },
   "scripts": {
-    "start": "cross-env HTTPS=false REACT_APP_API_URL=http://localhost:8080/ react-scripts start",
+    "start": "cross-env HTTPS=false REACT_APP_API_URL=http://localhost:8080/torrbook react-scripts start",
     "build": "react-scripts build"
   },
   "homepage": "https://example.com/JetSpace"

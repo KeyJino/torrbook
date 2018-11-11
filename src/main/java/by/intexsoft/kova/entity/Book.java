@@ -32,7 +32,7 @@ public class Book extends AbstractPersistable<Integer> {
     /**
      * Book's description;
      */
-    @Column(name = "descr_short")
+    @Column(name = "description")
     public String description;
 
     /**
@@ -41,4 +41,7 @@ public class Book extends AbstractPersistable<Integer> {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
     public User user;
+
+    @Column(name = "state")
+    public boolean state;
 }

@@ -16,14 +16,16 @@ public interface IRecordService {
 
     Record remove(Record object);
 
-    Record create(Book bookId, User newOwnerUserId);
+    Record save(Record record);
 
-    Record create(Book bookId, User newOwnerUserId, String description);
+    Record build(Book book, User user);
 
-    Record findRecordByUserId(int userId);
+    Record build(Book book, User user, String description);
 
-    Record findRecordByBookId(int bookId);
-
-    Record updateRecordDescriptionById(int recordId, String description);
+//    Record findRecordByUserId(int userId);
+//
+//    Record findRecordByBookId(int bookId);
+//
+//    Record updateRecordDescriptionById(int recordId, String description);
 
 }
