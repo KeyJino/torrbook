@@ -24,15 +24,15 @@ public class Record extends AbstractPersistable<Integer> {
     /**
      * This book given away;
      */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="book_id")
+    @ManyToOne
+    @JoinColumn(name = "book_id")
     public Book book;
 
     /**
      * Current owner of book;
      */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="user_take_id")
+    @ManyToOne
+    @JoinColumn(name = "user_take_id")
     public User user;
 
 }

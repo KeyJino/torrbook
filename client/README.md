@@ -1040,13 +1040,13 @@ You may also narrow down matches using `*` and/or `**`, to match the path exactl
 {
   // ...
   "proxy": {
-    // Matches any request starting with /api
+    addRequest
     "/api": {
       "target": "<url_1>",
       "ws": true
       // ...
     },
-    // Matches any request starting with /foo
+    addRequest
     "/foo": {
       "target": "<url_2>",
       "ssl": true,
@@ -1090,7 +1090,7 @@ Either way, you can proxy WebSocket requests manually in `package.json`:
       // Your compatible WebSocket server
       "target": "ws://<socket_url>",
       // Tell http-proxy-middleware that this is a WebSocket proxy.
-      // Also allows you to proxy WebSocket requests without an additional HTTP request
+      addRequest
       // https://github.com/chimurai/http-proxy-middleware#external-websocket-upgrade
       "ws": true
       // ...

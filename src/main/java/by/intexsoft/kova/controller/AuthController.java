@@ -10,14 +10,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller for check authorize.
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("qiwi")
 @Slf4j
 public class AuthController {
+
     @Autowired
     UserService userService;
 
+    /**
+     * Main method for check authorize.
+     *
+     * @param authentication input authentication.
+     * @return finding {@link User}.
+     */
     @GetMapping
     public by.intexsoft.kova.entity.User getAuthorize(Authentication authentication) {
         log.info("Get authenticated user for front");

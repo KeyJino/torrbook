@@ -1,8 +1,12 @@
 import {action, observable} from "mobx";
-import BookStore from "./BookStore";
 
 const CONTEXT_URL = process.env.REACT_APP_API_URL || '';
 const REQUEST_URL = CONTEXT_URL + '/api/requests/';
+
+/**
+ * Store for working with Request.
+ * Have some specified function for this act.
+ */
 export default class RequestStore {
 
 	@observable
@@ -11,19 +15,53 @@ export default class RequestStore {
 	@observable
 	request = null;
 
-	loadAll() {
-		fetch(REQUEST_URL)
-			.then(response => response.json())
-			.then(action(requests => this.requests = requests))
-			.catch(error => console.error(error.message))
+	/**
+	 * Loading requests from database.
+	 * Have segmentation for role: USER, MODER ADMIN.
+	 * Each role have specific URL.
+	 * @param id user.
+	 */
+	loadAll(id) {
+		switch(JSON.parse(sessionStorage.getItem('user')).role.title) {
+			case('USER'):
+				fetch(REQUEST_URL + "user-" + id)
+					.then(response => response.json())
+					.then(action(requests => this.requests = requests))
+					.catch(error => console.error(error.message));
+				break;
+
+			case('MODER'):
+				fetch(REQUEST_URL)
+					.then(response => response.json())
+					.then(action(requests => this.requests = requests))
+					.catch(error => console.error(error.message));
+				break;
+
+			case('ADMIN'):
+				fetch(REQUEST_URL)
+					.then(response => response.json())
+					.then(action(requests => this.requests = requests))
+					.catch(error => console.error(error.message));
+				break;
+
+			default: break;
+		}
 	}
 
+	/**
+	 * Deleting request by id.
+	 * @param identity of request.
+	 */
 	delete(identity) {
 		fetch(REQUEST_URL + identity, {method: 'DELETE'})
 			.then(() => this.deleteHandler(identity))
 			.catch(e => console.error(e.message))
 	}
 
+	/**
+	 * Automatically updating [] with users.
+	 * @param identity
+	 */
 	@action
 	deleteHandler(identity) {
 		const itemIndex = this.requests.findIndex(({id}) => id === identity);
@@ -32,6 +70,10 @@ export default class RequestStore {
 		}
 	}
 
+	/**
+	 * Approving request using id.
+	 * @param identity of request.
+	 */
 	approve(identity) {
 		const params = {
 			method: 'POST',
@@ -44,11 +86,15 @@ export default class RequestStore {
 			.catch(e => console.log(e))
 	}
 
+	/**
+	 * Change state of request.
+	 * @param identity of request.
+	 * @returns {request} - request.
+	 */
 	changeState(identity) {
 		let request = this.requests.find(request => request.id === identity);
 		request.state = true;
 		return request;
 	}
-
 
 }

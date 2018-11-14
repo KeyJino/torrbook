@@ -10,7 +10,7 @@
 
     <http authentication-manager-ref="manager" auto-config="true" use-expressions="true">
         <intercept-url pattern="/api/books**" access="hasAuthority('USER')"/>
-        <intercept-url pattern="/api/requests" access="hasAuthority('USER')"/>
+        <intercept-url pattern="/api/requests**" access="hasAuthority('USER')"/>
         <intercept-url pattern="/admin**" access="hasAuthority('ADMIN')"/>
         <security:form-login login-processing-url="/login"
                              username-parameter="username"

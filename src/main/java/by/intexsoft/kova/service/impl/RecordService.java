@@ -1,29 +1,31 @@
 package by.intexsoft.kova.service.impl;
 
+import by.intexsoft.kova.controller.RequestController;
 import by.intexsoft.kova.entity.Book;
 import by.intexsoft.kova.entity.Record;
+import by.intexsoft.kova.entity.Request;
 import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.RecordRepository;
 import by.intexsoft.kova.service.IRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * This class store records about deals between users with their books.
+ * This class store {@link Record}s about deals between users with their books.
+ *
+ * @see RecordService
  */
 @Service
 public class RecordService implements IRecordService {
 
-    private final
+    @Autowired
     RecordRepository recordRepository;
-
-    public RecordService(RecordRepository recordRepository) {
-        this.recordRepository = recordRepository;
-    }
 
     /**
      * Finding {@link Record} in repository by ID.
+     *
      * @param id - {@link Record}'s ID.
      * @return {@link Record}.
      */
@@ -34,6 +36,7 @@ public class RecordService implements IRecordService {
 
     /**
      * Finding all {@link Record}s from {@link RecordRepository}.
+     *
      * @return List of all {@link Record}.
      */
     @Override
@@ -41,51 +44,9 @@ public class RecordService implements IRecordService {
         return recordRepository.findAll();
     }
 
-//    /**
-//     * Search all {@link Record} in {@link RecordRepository} there is specified userId.
-//     * @param userId - specified attribute for searching {@link Record}.
-//     * @return all {@link Record} with {@link User}Id.
-//     */
-//    @Override
-//    public Record findRecordByUserId(int userId) {
-//        Record record = new Record();
-//        for (Record item : recordRepository.findAll()) {
-//            record = item.user.getId().equals(userId) ? item : null;
-//        }
-//        return record;
-//    }
-
-//    /**
-//     * Search all {@link Record} in {@link RecordRepository} there is specified userId.
-//     * @param bookId - specified attribute for searching {@link Record}.
-//     * @return all {@link Record} with {@link Book}Id.
-//     */
-//    @Override
-//    public Record findRecordByBookId(int bookId) {
-//        Record record = new Record();
-//        for (Record item : recordRepository.findAll()) {
-//            record = item.book.getId().equals(bookId) ? item : null;
-//        }
-//        return record;
-//    }
-
-//    /**
-//     * Creating new {@link Record} without description.
-//     * @param book - {@link Book} which will be given away.
-//     * @param newOwnerUser - new temporary owner {@link User}.
-//     * @return new {@link Record}.
-//     */
-//    @Override
-//    public Record save(Book book, User newOwnerUser) {
-//        Record record = new Record();
-//        record.book = book;
-//        record.user = newOwnerUser;
-//        recordRepository.save(record);
-//        return record;
-//    }
-
     /**
      * Removing selected {@link Record} from {@link RecordRepository}.
+     *
      * @param record - selected {@link Record}.
      * @return deleting {@link Record}.
      */
@@ -97,6 +58,7 @@ public class RecordService implements IRecordService {
 
     /**
      * Saving selected {@link Record} to {@link RecordRepository}.
+     *
      * @param record to saving.
      * @return saving recorder.
      */
@@ -106,6 +68,15 @@ public class RecordService implements IRecordService {
         return record;
     }
 
+    /**
+     * Building {@link Record}'s object before saving .
+     *
+     * @param book which {@link User} taking.
+     * @param user who take {@link Book}.
+     * @return built {@link Record}.
+     * @see IRecordService#save(Record)
+     * @see RequestController#approve(Request, int)
+     */
     @Override
     public Record build(Book book, User user) {
         Record record = new Record();
@@ -114,6 +85,16 @@ public class RecordService implements IRecordService {
         return record;
     }
 
+    /**
+     * Building {@link Record}'s object before saving .
+     *
+     * @param book        which {@link User} taking.
+     * @param user        who take {@link Book}.
+     * @param description about this {@link Record}. Optional.
+     * @return built {@link Record}.
+     * @see IRecordService#save(Record)
+     * @see RequestController#approve(Request, int)
+     */
     @Override
     public Record build(Book book, User user, String description) {
         Record record = new Record();
@@ -124,7 +105,19 @@ public class RecordService implements IRecordService {
     }
 
     /**
+     * Finding all {@link Record}s by ID.
+     *
+     * @param recordId id for searching in {@link RecordRepository}.
+     * @return List {@link Record}s for current {@link Record}Id.
+     */
+    @Override
+    public List<Record> findAllById(int recordId) {
+        return recordRepository.findAllById(recordId);
+    }
+
+    /**
      * Removing selected {@link Record} from {@link RecordRepository}, but using {@link Record}'s ID.
+     *
      * @param recordId - selected {@link Record}'s ID.
      * @return deleting {@link Record}.
      */
@@ -134,18 +127,4 @@ public class RecordService implements IRecordService {
         recordRepository.deleteById(recordId);
         return record;
     }
-
-//    /**
-//     * Method is updating {@link Record}'s description.
-//     * @param recordId - selected {@link Record}
-//     * @param description of {@link Record}
-//     * @return {@link Record} with new description.
-//     */
-//    @Override
-//    public Record updateRecordDescriptionById(int recordId, String description) {
-//        Record record = findById(recordId);
-//        record.description = description;
-//        recordRepository.save(record);
-//        return record;
-//    }
 }
