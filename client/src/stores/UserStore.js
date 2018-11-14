@@ -2,6 +2,10 @@ import {action, observable} from "mobx";
 
 const CONTEXT_URL = process.env.REACT_APP_API_URL || '';
 const USER_URL = CONTEXT_URL + '/api/users/';
+
+/**
+ * Store for working with user in application.
+ */
 export default class UserStore {
 	@observable
 	users = [];
@@ -9,6 +13,10 @@ export default class UserStore {
 	@observable
 	user = null;
 
+	/**
+	 * Loading all users from database.
+	 * Fetch request.
+	 */
 	loadAll() {
 		fetch(USER_URL)
 			.then(response => response.json())
@@ -16,10 +24,15 @@ export default class UserStore {
 			.catch(error => console.error(error.message))
 	}
 
+	/**
+	 * Fetch POST request to database create user.
+	 * In DEMO hasn't might to create new User.
+	 * Only default.
+	 */
 	create() {
 		const params = {
 			method: 'POST',
-			body: JSON.stringify(UserStore.generate()),
+			body: 'DEMO',
 			headers: {'Content-Type': 'application/json'}
 		};
 		fetch(USER_URL, params)
@@ -28,12 +41,20 @@ export default class UserStore {
 			.catch(e => console.log(e))
 	}
 
+	/**
+	 * Fetch GET request to delete user.
+	 * @param identity this User.
+	 */
 	delete(identity) {
 		fetch(USER_URL + "/" + identity, {method: 'DELETE'})
 			.then(() => this.deleteHandler(identity))
 			.catch(e => console.error(e.message))
 	}
 
+	/**
+	 * Handler to automatically update [] on delete.
+	 * @param identity of the User.
+	 */
 	@action
 	deleteHandler(identity) {
 		const itemIndex = this.users.findIndex(({id}) => id === identity);
@@ -42,25 +63,10 @@ export default class UserStore {
 		}
 	}
 
-	static generate() {
-		return {
-			title: "book #" + Math.round(1000 * Math.random()),
-			author: "author #" + Math.round(1000 * Math.random()),
-			description: "description-",
-			user: {
-				id: 6
-			}
-		}
-	}
-
-	// load(identity) {
-	// 	fetch(BOOK_URL + "/" + identity, {method: 'GET'})
-	// 		.then(response => response.json())
-	// 		.then(action(company => this.company = company))
-	// 		.catch(e => console.log(e));
-	// }
-
+	/**
+	 * Clearing user.
+	 */
 	deselect() {
-		this.book = null;
+		this.user = null;
 	}
 }

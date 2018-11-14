@@ -17,10 +17,16 @@ import javax.persistence.Table;
 @Table(name = "roles")
 public class Role extends AbstractPersistable<Integer> {
 
-    @Column(name="title")
+    /**
+     * Title of role users.
+     */
+    @Column(name = "title")
     public String title;
 
-    @Column(name="power")
+    /**
+     * Some counter which shows their might.
+     */
+    @Column(name = "power")
     public String power;
 
 }

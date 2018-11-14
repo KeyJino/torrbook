@@ -2,15 +2,17 @@ import {action, observable} from "mobx";
 
 const CONTEXT_URL = process.env.REACT_APP_API_URL || '';
 
+/**
+ * Store for checking to signIn in application.
+ */
 export default class AuthStore {
 	@observable
-	user = null;
+	user = JSON.parse(sessionStorage.getItem('user'));
 
 	/**
-	 * Get auth user from server
+	 * Get auth user from server.
 	 */
 	signIn(username, password) {
-		console.log(this.user);
 		const paramsUser = {
 			username: username,
 			password: password,
@@ -40,7 +42,7 @@ export default class AuthStore {
 
 
 	/**
-	 * logOut
+	 * logOut from application.
 	 */
 	logOut() {
 		fetch(CONTEXT_URL + '/logout', {method: 'POST'})

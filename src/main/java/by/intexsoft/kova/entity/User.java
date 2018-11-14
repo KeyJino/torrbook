@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class User extends AbstractPersistable<Integer> {
-
     /**
      * Contains user name
      */
@@ -23,16 +22,30 @@ public class User extends AbstractPersistable<Integer> {
     @Column(name = "password")
     public String password;
 
+    /**
+     * User description
+     */
     @Column(name = "about")
     public String about;
 
+    /**
+     * How many give {@link Book}'s.
+     * Need for counting user's rating.
+     */
     @Column(name = "book_given")
     public int bookGiven;
 
+    /**
+     * How many take {@link Book}'s.
+     * Need for counting user's rating.
+     */
     @Column(name = "book_taken")
     public int bookTaken;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="role_id")
+    /**
+     * User role in application.
+     */
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     public Role role;
 }

@@ -12,13 +12,33 @@ import java.util.List;
  */
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
+    /**
+     * Finding all {@link Book}'s by author
+     *
+     * @param author - filed to search and returning List {@link Book}
+     * @return List {@link Book}
+     */
     @Query("select book from Book book where book.author=:author")
-    List<Book> findByAuthor(@Param("author")String author);
+    List<Book> findByAuthor(@Param("author") String author);
 
+
+    /**
+     * Finding all {@link Book}'s by description
+     *
+     * @param description - filed to search and returning List {@link Book}
+     * @return List {@link Book}
+     */
     @Query("select book from Book book where book.description=:description")
-    List<Book> findByDescription(@Param("description")String description);
+    List<Book> findByDescription(@Param("description") String description);
 
+
+    /**
+     * Finding all {@link Book}'s by title
+     *
+     * @param title - filed to search and returning List {@link Book}
+     * @return List {@link Book}
+     */
     @Query("select book from Book book where book.title=:title")
-    List<Book> findByTitle(@Param("title")String title);
+    List<Book> findByTitle(@Param("title") String title);
 
 }

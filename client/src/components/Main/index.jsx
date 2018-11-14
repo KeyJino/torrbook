@@ -1,11 +1,12 @@
 import React from "react";
-import {Switch, Route, Redirect, Link, withRouter} from 'react-router-dom';
+import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import Login from "../Login";
-import User from "../User";
+import Auth from "../Auth";
 import {inject, observer} from "mobx-react";
 import Header from "../Header";
 import Books from "../Book";
 import Request from "../Request";
+import Record from "../Record";
 
 @withRouter
 @inject('authStore')
@@ -20,9 +21,10 @@ export default class Main extends React.Component {
 					sessionStorage.getItem('user') !== null
 					? (<Switch>
 						<Route path="/request" component={Request}/>
-						<Route path="/user" component={User}/>
+						<Route path="/user" component={Auth}/>
 						<Route path='/books' component={Books}/>
-						<Redirect from='*' to='/books'/>
+						<Route path='/records' component={Record}/>
+						<Redirect from='*' to='/user'/>
 					</Switch>)
 					: (<Switch>
 							<Route path="/login" component={Login}/>

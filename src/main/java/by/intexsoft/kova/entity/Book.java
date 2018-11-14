@@ -10,7 +10,7 @@ import javax.persistence.*;
  * id (we use AbstractPersistable) - ID of book,
  * title - book's name
  * author - book's author,
- * descr_shor - short description to book, now - 230 character,
+ * description - short description to book, now - 230 character,
  * user_id - user's id who owns this book.
  */
 @Entity
@@ -38,10 +38,25 @@ public class Book extends AbstractPersistable<Integer> {
     /**
      * Owner of book;
      */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     public User user;
 
+    /**
+     * State of book(2):
+     * true - is vacant and maybe taking;
+     * false - busy, on hand.
+     */
     @Column(name = "state")
     public boolean state;
+
+    /**
+     * Request's state:
+     * true - have requests;
+     * false - hasn't requests.
+     */
+    @Column(name = "request")
+    public boolean request;
+
+
 }
