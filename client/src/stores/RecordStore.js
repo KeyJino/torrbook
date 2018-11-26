@@ -16,7 +16,7 @@ export default class RecordStore {
 
 	/**
 	 * Loading all records using some roles('USER', 'MODER', 'ADMIN').
-	 * @param id of User.
+	 * @param id of UserButton.
 	 */
 	loadAll(id) {
 		switch(JSON.parse(sessionStorage.getItem('user')).role.title) {

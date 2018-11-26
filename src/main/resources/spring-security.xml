@@ -5,7 +5,7 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <b:bean id="userDetailsServiceImpl" class="by.intexsoft.kova.service.impl.UserDetailsServiceImpl">
+    <b:bean id="detailsUserService" class="by.intexsoft.kova.service.impl.DetailsUserService">
     </b:bean>
 
     <http authentication-manager-ref="manager" auto-config="true" use-expressions="true">
@@ -31,7 +31,7 @@
             class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
     <authentication-manager id="manager">
-        <authentication-provider user-service-ref="userDetailsServiceImpl">
+        <authentication-provider user-service-ref="detailsUserService">
             <password-encoder ref="encoder"/>
         </authentication-provider>
     </authentication-manager>

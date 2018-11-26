@@ -28,7 +28,7 @@ public class BookController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('MODER')")
     public Book create(@RequestBody Book book) {
         bookService.save(book);
         return book;
@@ -43,5 +43,10 @@ public class BookController {
     @PostMapping("/change-request-{id}")
     public void changeRequest(@RequestBody Book book, @PathVariable int id) {
         bookService.save(book);
+    }
+
+    @GetMapping("/&{title}")
+    public List<Book> findBookByTitle(@PathVariable String title) {
+        return bookService.findBookByTitle(title);
     }
 }

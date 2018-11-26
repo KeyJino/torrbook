@@ -2,7 +2,7 @@ import React from "react";
 import {inject, observer} from 'mobx-react';
 import {Button, Table} from "react-bootstrap";
 
-@inject('requestStore')
+@inject('requestStore', 'userService')
 @observer
 export default class Request extends React.Component {
 
@@ -20,6 +20,9 @@ export default class Request extends React.Component {
 
 	render() {
 		const {props: {requestStore: {requests}}} = this;
+		const role = this.props.userService.checkRole;
+
+
 		return (
 			<Table>
 				<thead>
@@ -32,8 +35,7 @@ export default class Request extends React.Component {
 				</thead>
 
 				{
-					(JSON.parse(sessionStorage.getItem('user')))
-						.role.title === 'MODER'
+					(role('MODER')
 						? (
 							<tbody>
 							{
@@ -62,11 +64,11 @@ export default class Request extends React.Component {
 							</tbody>
 						)
 						: null
+					)
 				}
 
 				{
-					(JSON.parse(sessionStorage.getItem('user')))
-						.role.title === 'USER'
+					(role('USER')
 						? (
 							<tbody>
 							{
@@ -93,6 +95,7 @@ export default class Request extends React.Component {
 							</tbody>
 						)
 						: null
+					)
 				}
 			</Table>
 		)

@@ -1,0 +1,54 @@
+body {
+    background: #eaeaea;
+}
+#list {
+    margin-top: 20px;
+}
+.ul {
+    list-style-type: none;
+    max-width: 500px;
+    margin: -10px auto 0;
+    padding: 0 15px;
+}
+.li {
+    background: white;
+    border-radius: 8px;
+    margin-top: 20px;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+}
+
+.avatar {
+    vertical-align: top;
+    background: #eaeaea;
+    border-radius: 4px;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+.lines {
+    display: inline-block;
+    height: auto;
+    margin-left: 20px;
+    width: calc(100% - 100px);
+}
+.lines:before {
+    background: #eaeaea;
+    content: ' ';
+    display: block;
+    width: 100%;
+    height: 10px;
+}
+
+.lines:after {
+    background: #eaeaea;
+    content: ' ';
+    display: block;
+    margin-top: -10px;
+    width: 100%;
+    height: 10px;
+}
+
+
+
