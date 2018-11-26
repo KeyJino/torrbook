@@ -64,12 +64,6 @@ public class BookService implements IBookService {
         return bookRepository.findByDescription(description);
     }
 
-    @Deprecated
-    @Override
-    public List<Book> findByTitle(String title) {
-        return bookRepository.findByTitle(title);
-    }
-
     /**
      * Change {@link Book}'s state by there Id.
      *
@@ -120,6 +114,11 @@ public class BookService implements IBookService {
         Book book = findById(id);
         bookRepository.deleteById(id);
         return book;
+    }
+
+    @Override
+    public List<Book> findBookByTitle(String title) {
+        return bookRepository.findBookByTitleContaining(title);
     }
 
 }

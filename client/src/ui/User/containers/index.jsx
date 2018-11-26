@@ -4,7 +4,7 @@ import {inject, observer} from 'mobx-react'
 @inject('userStore')
 @observer()
 /**
- * User component
+ * UserButton component
  */
 export default class User extends React.Component{
 
@@ -17,7 +17,7 @@ export default class User extends React.Component{
 
 	/**
 	 * Deleting some user from store.
-	 * @param id is User.
+	 * @param id is UserButton.
 	 */
 	delete(id) {
 		this.props.userStore.delete(id);

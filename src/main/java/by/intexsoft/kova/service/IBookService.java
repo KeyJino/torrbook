@@ -54,9 +54,6 @@ public interface IBookService {
     @Deprecated
     List<Book> findByDescription(String description);
 
-    @Deprecated
-    List<Book> findByTitle(String title);
-
     /**
      * Change {@link Book}'s state by there Id.
      * @param id of {@link Book}.
@@ -70,5 +67,7 @@ public interface IBookService {
      * @return {@link Book} with changes.
      */
     Book changeRequestStateById(int id);
+
+    List<Book> findBookByTitle(String title);
 
 }

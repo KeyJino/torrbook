@@ -3,16 +3,21 @@
   "dependencies": {
     "cross-env": "^5.2.0",
     "custom-react-scripts": "0.2.2",
+    "i18next": "^12.1.0",
     "mobx": "^5.5.0",
     "mobx-react": "^5.2.8",
     "react": "^16.5.2",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.5.2",
+    "react-js-pagination": "^3.0.2",
     "react-router-dom": "^4.2.2"
   },
   "scripts": {
     "start": "cross-env HTTPS=false REACT_APP_API_URL=http://localhost:8080/torrbook react-scripts start",
     "build": "react-scripts build"
   },
-  "homepage": "https://example.com/JetSpace"
+  "homepage": "https://example.com/TorrentBook",
+  "devDependencies": {
+    "babel-plugin-react-require": "^3.0.1"
+  }
 }

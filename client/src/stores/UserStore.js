@@ -26,7 +26,7 @@ export default class UserStore {
 
 	/**
 	 * Fetch POST request to database create user.
-	 * In DEMO hasn't might to create new User.
+	 * In DEMO hasn't might to create new UserButton.
 	 * Only default.
 	 */
 	create() {
@@ -43,7 +43,7 @@ export default class UserStore {
 
 	/**
 	 * Fetch GET request to delete user.
-	 * @param identity this User.
+	 * @param identity this UserButton.
 	 */
 	delete(identity) {
 		fetch(USER_URL + "/" + identity, {method: 'DELETE'})
@@ -53,7 +53,7 @@ export default class UserStore {
 
 	/**
 	 * Handler to automatically update [] on delete.
-	 * @param identity of the User.
+	 * @param identity of the UserButton.
 	 */
 	@action
 	deleteHandler(identity) {

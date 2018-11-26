@@ -38,7 +38,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @param title - filed to search and returning List {@link Book}
      * @return List {@link Book}
      */
-    @Query("select book from Book book where book.title=:title")
-    List<Book> findByTitle(@Param("title") String title);
+    List<Book> findBookByTitleContaining(@Param("title") String title);
 
 }

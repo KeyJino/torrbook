@@ -9,6 +9,7 @@ export default class AuthStore {
 	@observable
 	user = JSON.parse(sessionStorage.getItem('user'));
 
+
 	/**
 	 * Get auth user from server.
 	 */

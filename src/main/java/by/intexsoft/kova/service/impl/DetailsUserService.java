@@ -18,13 +18,14 @@ import java.util.Set;
  */
 @Slf4j
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class DetailsUserService implements UserDetailsService {
 
     @Autowired
     private UserService userService;
 
     /**
      * Download user by username.
+     *
      * @param username which using for searching.
      * @return userdetails.User.
      * @throws UsernameNotFoundException if username dont finding.
@@ -35,7 +36,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<GrantedAuthority> roles = new HashSet<>();
         roles.add(new SimpleGrantedAuthority(user.role.title));
         return new org.springframework.security.core.userdetails.User(user.username,
-                        user.password,
-                        roles);
+                user.password,
+                roles);
     }
 }

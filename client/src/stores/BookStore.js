@@ -32,13 +32,20 @@ export default class BookStore {
 			.catch(error => console.error(error.message))
 	}
 
+	findBookByTitle(title) {
+		fetch(BOOK_URL + "/" + "&" + title)
+			.then(response => response.json())
+			.then(action(books => this.books = books))
+			.catch(error => console.error(error.message))
+	}
+
 	/**
 	 * Creating Book. In DEMO version all data generating automatically.
 	 */
-	create() {
+	create(title, author, user, description) {
 		const params = {
 			method: 'POST',
-			body: JSON.stringify(BookStore.generate()),
+			body: JSON.stringify(BookStore.generate(title,  author, user, description)),
 			headers: {'Content-Type': 'application/json'}
 		};
 		fetch(BOOK_URL, params)
@@ -100,16 +107,24 @@ export default class BookStore {
 	/**
 	 * Automatically generating Book in Demo Version.
 	 * @returns Book object ->
-	 * {{title: string, author: string, description: string, state: boolean, user: {id: number}}}
+	 * {{title: string,
+	 * author: string,
+	 * description: string,
+	 * state: boolean,
+	 * user: {id: number},
+	 * image: {id: number}}
 	 */
-	static generate() {
+	static generate(title, author, user, description) {
 		return {
-			title: "book #" + Math.round(1000 * Math.random()),
-			author: "author #" + Math.round(1000 * Math.random()),
-			description: "description-",
+			title: title,
+			author: author,
+			description: description,
 			state: true,
 			user: {
-				id: 6
+				id: user
+			},
+			image: {
+				id: 1000
 			}
 		}
 	}

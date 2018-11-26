@@ -58,5 +58,11 @@ public class Book extends AbstractPersistable<Integer> {
     @Column(name = "request")
     public boolean request;
 
+    /**
+     * Url to current book's image.
+     */
+    @ManyToOne
+    @JoinColumn(name = "image_id")
+    public Image image;
 
 }
