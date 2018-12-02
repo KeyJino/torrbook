@@ -17,9 +17,6 @@ export default class Login extends React.Component {
 		this.props.authStore.signIn(this.username.current.value, this.password.current.value);
 	}
 
-	register() {
-		this.props.authStore.register()
-	}
 
 	render() {
 		return (
@@ -32,13 +29,18 @@ export default class Login extends React.Component {
 
 				<div className="login">
 
-					<input type="text" placeholder="username" name="username" ref={this.username}/>
+					<input type="text" placeholder="Username" name="username" ref={this.username}
+					className="input-log-text"/>
 
-					<input type="password" placeholder="password" name="password" ref={this.password}/>
+					<input type="password" placeholder="Password" name="password" ref={this.password}
+					className="input-log-pass"/>
 
-					<input type="button" onClick={this.signIn.bind(this)} value="Login"/>
+					<input type="button" onClick={this.signIn.bind(this)} value="Login"
+					className="input-log-btn"/>
 
-					<input type="button" onClick={this.register.bind(this)} value="Register"/>
+					<Link to="/registration"><input type="button" value="Register"
+					className="input-log-btn"/></Link>
+
 
 				</div>
 

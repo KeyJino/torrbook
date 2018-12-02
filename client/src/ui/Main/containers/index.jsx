@@ -35,10 +35,11 @@ export default class Main extends React.Component {
 							<Route path='/books' component={Books}/>
 							<Route path='/records' component={Record}/>
 								{role('MODER') ? <Route path='/creating' component={CreateBook}/> : null}
+
 							<Redirect from='*' to='/user'/>
 						</Switch>)
 						: (<Switch>
-								<Route path='/registration' component={Registration}/>
+								<Route path="/registration" component={Registration}/>
 								<Route path="/login" component={Login}/>
 								<Redirect from='*' to='/login'/>
 							</Switch>

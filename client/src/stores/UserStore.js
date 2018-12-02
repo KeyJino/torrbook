@@ -1,7 +1,7 @@
 import {action, observable} from "mobx";
 
 const CONTEXT_URL = process.env.REACT_APP_API_URL || '';
-const USER_URL = CONTEXT_URL + '/api/users/';
+const USER_URL = CONTEXT_URL + '/api/users';
 
 /**
  * Store for working with user in application.
@@ -29,13 +29,21 @@ export default class UserStore {
 	 * In DEMO hasn't might to create new UserButton.
 	 * Only default.
 	 */
-	create() {
+	create(username, password, role) {
+		console.log(username, password, role);
 		const params = {
 			method: 'POST',
-			body: 'DEMO',
+			body: JSON.stringify({
+				username: username,
+				about: 'testing',
+				role: {
+					id: role
+				},
+				password: password
+			}),
 			headers: {'Content-Type': 'application/json'}
 		};
-		fetch(USER_URL, params)
+		fetch(USER_URL + "/creating", params)
 			.then(response => response.json())
 			.then(action(user => this.user.push(user)))
 			.catch(e => console.log(e))

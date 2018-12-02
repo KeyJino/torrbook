@@ -15,7 +15,7 @@ import java.util.List;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @Slf4j
 public class UserController {
 
@@ -34,7 +34,7 @@ public class UserController {
      *
      * @return List {@link User}.
      */
-    @GetMapping("/")
+    @GetMapping
     public List<User> getAll() {
         return userService.findAll();
     }
@@ -55,8 +55,9 @@ public class UserController {
      * @param user for saving to {@link UserRepository}.
      * @return saving {@link User}.
      */
-    @PostMapping
+    @PostMapping("/creating")
     public User create(@RequestBody User user) {
-        return userService.save(user);
+        userService.save(user);
+        return user;
     }
 }
