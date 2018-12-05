@@ -37,13 +37,6 @@ export default class RequestStore {
 					.catch(error => console.error(error.message));
 				break;
 
-			case('ADMIN'):
-				fetch(REQUEST_URL)
-					.then(response => response.json())
-					.then(action(requests => this.requests = requests))
-					.catch(error => console.error(error.message));
-				break;
-
 			default: break;
 		}
 	}

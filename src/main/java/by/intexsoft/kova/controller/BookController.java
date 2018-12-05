@@ -1,7 +1,9 @@
 package by.intexsoft.kova.controller;
 
 import by.intexsoft.kova.entity.Book;
+import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.service.IBookService;
+import by.intexsoft.kova.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -22,14 +24,19 @@ public class BookController {
     @Autowired
     IBookService bookService;
 
+    @Autowired
+    IUserService userService;
+
     @GetMapping
     public List<Book> bookList() {
         return bookService.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/creating")
     @PreAuthorize("hasAuthority('MODER')")
     public Book create(@RequestBody Book book) {
+        User user = userService.inscriptionBookTaken(book.user);
+        userService.update(user);
         bookService.save(book);
         return book;
     }

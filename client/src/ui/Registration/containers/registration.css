@@ -26,7 +26,6 @@
 }
 
 .reg-form {
-
     position: absolute;
     top: calc(10% + 10px);
     left: calc(45% - 100px);
@@ -77,7 +76,7 @@
     color: rgba(255, 255, 255, 0.7);
 }
 
-.btn {
+.btn-reg {
     font-family: "Core Sans N W01 35 Light", serif;
     text-overflow: ellipsis;
     white-space: nowrap;

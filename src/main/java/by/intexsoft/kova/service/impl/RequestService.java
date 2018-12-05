@@ -94,4 +94,9 @@ public class RequestService implements IRequestService {
     public List<Request> findAllById(int user_take_id) {
         return requestRepository.findAllById(user_take_id);
     }
+
+    @Override
+    public Request findRequestByBookAndUser(Book book, User user) {
+        return requestRepository.findRequestByBookAndUser(book, user);
+    }
 }

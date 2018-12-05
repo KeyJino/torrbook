@@ -1,6 +1,7 @@
 package by.intexsoft.kova.service;
 
 import by.intexsoft.kova.controller.RecordController;
+import by.intexsoft.kova.entity.Role;
 import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.UserRepository;
 
@@ -67,10 +68,26 @@ public interface IUserService {
     User inscriptionBookTaken(User user);
 
     /**
-     * Update {@link User}.
+     * Decrement taken books by {@link User} counter to -1.
+     * @param user current {@link User}.
+     * @return updating said {@link User}.
+     */
+    User decrementBookTaken(User user);
+
+    /**
+     * Update {@link User}
      * @see RecordController#remove(int)
-     * @param user for saving in {@link UserRepository}.
-     * @return {@link User}.
+     * @param user for saving in {@link UserRepository}
+     * @return {@link User}
      */
     User update(User user);
+
+    /**
+     * Banned some user.
+     * @param user current.
+     * @return this user.
+     */
+    User ban(User user);
+
+    List<User> findByRole(Role role);
 }

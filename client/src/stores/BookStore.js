@@ -33,6 +33,7 @@ export default class BookStore {
 	}
 
 	findBookByTitle(title) {
+		console.log(title);
 		fetch(BOOK_URL + "/" + "&" + title)
 			.then(response => response.json())
 			.then(action(books => this.books = books))
@@ -48,7 +49,7 @@ export default class BookStore {
 			body: JSON.stringify(BookStore.generate(title,  author, user, description)),
 			headers: {'Content-Type': 'application/json'}
 		};
-		fetch(BOOK_URL, params)
+		fetch(BOOK_URL + "/creating", params)
 			.then(response => response.json())
 			.then(action(book => this.books.push(book)))
 			.catch(e => console.log(e))

@@ -73,6 +73,26 @@ public class RequestController {
         book.request = !book.request;
         bookService.save(book);
 
+        // для модера.
+        User moder = userService.findById(request.book.user.getId());
+        System.out.println("-=-=--=-=- Модер: " + moder.getId());
+
+        System.out.println("Модер метод decrementBookTaken ДО: " + moder.bookTaken);
+        userService.decrementBookTaken(moder); // уменьшаем общее количество
+        System.out.println("Модер метод decrementBookTaken ПОСЛЕ: " + moder.bookTaken);
+
+        System.out.println("Модер метод decrementBookGiven ДО: " + moder.bookGiven);
+        userService.inscriptionBookGiven(moder); // увеличиваем счётчик книг, которые дал
+        System.out.println("Модер метод decrementBookGiven ПОСЛЕ: " + moder.bookGiven);
+
+        System.out.println("Сохранение модера bookTaken/Given: " + moder.bookTaken + " / " + moder.bookGiven);
+        userService.update(moder);
+
+
+        User user = userService.findById(request.user.getId());
+        userService.inscriptionBookTaken(user); // увеличиваем счётчик юзеру "взятых книг"
+        userService.update(user);
+
         Record record = recordService.build(request.book, request.user, "Тут описание");
         recordService.save(record);
     }
@@ -114,5 +134,13 @@ public class RequestController {
     @PreAuthorize("hasAuthority('USER')")
     public List<Request> loadById(@PathVariable int user_id) {
         return requestService.findAllById(user_id);
+    }
+
+    @GetMapping("/book-{book_id}-user-{user_id}")
+    @PreAuthorize("hasAuthority('USER')")
+    public Request findRequestByBookAndUser(@PathVariable int book_id, @PathVariable int user_id) {
+        Book book = bookService.findById(book_id);
+        User user = userService.findById(user_id);
+        return requestService.findRequestByBookAndUser(book, user);
     }
 }

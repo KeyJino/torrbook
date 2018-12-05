@@ -13,6 +13,9 @@ export default class UserStore {
 	@observable
 	user = null;
 
+	@observable
+	username = undefined;
+
 	/**
 	 * Loading all users from database.
 	 * Fetch request.
@@ -24,13 +27,19 @@ export default class UserStore {
 			.catch(error => console.error(error.message))
 	}
 
+	loadByRole(role_id) {
+		fetch(USER_URL + "/role-" + role_id)
+			.then(response => response.json())
+			.then(action(users => this.users = users))
+			.catch(error => console.error(error.message))
+	}
+
 	/**
 	 * Fetch POST request to database create user.
 	 * In DEMO hasn't might to create new UserButton.
 	 * Only default.
 	 */
 	create(username, password, role) {
-		console.log(username, password, role);
 		const params = {
 			method: 'POST',
 			body: JSON.stringify({
@@ -69,6 +78,26 @@ export default class UserStore {
 		if (itemIndex > -1) {
 			this.users.splice(itemIndex, 1);
 		}
+	}
+
+	check(username) {
+		fetch(USER_URL + "/" + username)
+			.then(response => response.json())
+			.then(action(response => this.username = response.username))
+			.catch(e => console.log(e));
+	}
+
+	ban(user_id) {
+		fetch(USER_URL + "/ban-" + user_id)
+			.then(response => response.json())
+			.then(() => this.banHandler(user_id))
+			.catch(e => console.log(e))
+	}
+
+	@action
+	banHandler(user_id) {
+		const itemIndex = this.users.findIndex(({id}) => id === user_id);
+		this.users[itemIndex].status = !this.users[itemIndex].status;
 	}
 
 	/**

@@ -67,4 +67,6 @@ public interface IRequestService {
      */
     List<Request> findAllById(int userId);
 
+    Request findRequestByBookAndUser(Book book, User user);
+
 }

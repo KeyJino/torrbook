@@ -25,9 +25,9 @@ export default class Book extends React.Component {
 							<p>
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus urna non turpis
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus urna non turpis
-								{this.btn}
 							</p>
 						</div>
+						{this.btn}
 					</li>
 				</ul>
 			</div>

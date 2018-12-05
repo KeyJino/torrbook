@@ -10,7 +10,7 @@ import './index.css'
 /**
  * Book component. Component content function to working with book.
  */
-@inject('bookStore', 'userService')
+@inject('bookStore', 'userService', 'requestStore')
 @observer
 export default class Books extends React.Component {
 	constructor(props) {
@@ -30,6 +30,7 @@ export default class Books extends React.Component {
 	 */
 	componentDidMount() {
 		this.props.bookStore.loadAll();
+		this.props.requestStore.loadAll(JSON.parse(sessionStorage.getItem('user')).id)
 	}
 
 	/**
@@ -70,13 +71,17 @@ export default class Books extends React.Component {
 	render() {
 		const {props: {bookStore: {books}}} = this;
 		const role = this.props.userService.checkRole;
+		const {props: {requestStore: {requests}}} = this;
 
 		return (
 			<div>
 
-				<div className="div">
-					<input type="text" ref={this.bookTitle} onChange={() => this.search()}/>
-				</div>
+				<form className="div">
+					<h5> Book's name </h5>
+					<input type="text"
+						   ref={this.bookTitle}
+						   onChange={() => this.search()}/>
+				</form>
 
 
 				{books.slice(this.state.activePage * 10 - 10, this.state.activePage * 10).map(
@@ -87,45 +92,37 @@ export default class Books extends React.Component {
 						 request,
 						 image
 					 }) => (<div key={book_id}>
-						{state === true ?
-							<Book
-								book_id={book_id}
-								title={title}
-								bookState={state && !request ?
-									"Можно взять" : request ?
-										"В запросах" : "На руках"}
-								image={image}
-								btn={
-									role('ADMIN') ?
-										<Button bsSize="xsmall" bsStyle="danger"
-												onClick={() =>
-													this.props.bookStore.delete(book_id)}>Удалить
-										</Button> :
+						{
+								state === true ?
+									<Book
+										book_id={book_id}
+										title={title}
+										bookState={state && !request ?
+											"Можно взять" : request ?
+												"В запросах" : "На руках"}
+										image={image}
+										btn={
+											role('MODER') ?
+												<Button bsSize="xsmall" bsStyle="danger"
+														onClick={() =>
+															this.props.bookStore.delete(book_id)}>Удалить
+												</Button> :
 
 
-										role('USER') ?
-											<Button bsSize="xsmall" bsStyle="primary"
-													onClick={() => {
-														this.addRequest(book_id);
-														this.changeBookRequest(book_id);
-													}}
-													disabled={request}>Попросить
-											</Button>
-											: null
-								}
-							/> : null
+												role('USER') ?
+													<Button bsSize="xsmall" bsStyle="primary"
+															onClick={() => {
+
+																this.addRequest(book_id);
+																this.changeBookRequest(book_id);
+															}}
+													>Попросить
+													</Button>
+													: null
+										}
+									/> : null
 						}
 					</div>))
-				}
-
-
-				{role('MODER')
-					? (
-						<Button bsSize="xsmall" bsStyle="success" onClick={() =>
-							this.props.bookStore.create()}>Добавить книгу
-						</Button>
-					)
-					: null
 				}
 
 				<div className="div">

@@ -20,8 +20,8 @@ export default class Request extends React.Component {
 
 	render() {
 		const {props: {requestStore: {requests}}} = this;
-		const role = this.props.userService.checkRole;
 
+		const role = this.props.userService.checkRole;
 
 		return (
 			<Table>
@@ -86,7 +86,7 @@ export default class Request extends React.Component {
 												{book.title}
 											</td>
 											<td>
-												{user.username}
+												{book.user.username}
 											</td>
 										</tr>
 									)

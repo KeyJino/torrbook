@@ -33,8 +33,10 @@ export default class AuthStore {
 		fetch(CONTEXT_URL + '/login', params)
 			.then(response => response.json())
 			.then(action(user => {
-				sessionStorage.setItem('user', JSON.stringify(user));
-				this.user = user;
+				if (!user.status) {
+					sessionStorage.setItem('user', JSON.stringify(user));
+					this.user = user;
+				}
 			}))
 			.catch(e => {
 				console.log(e);

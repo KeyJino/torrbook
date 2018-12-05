@@ -31,4 +31,5 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 
     Request findRequestByBook(Book book);
 
+    Request findRequestByBookAndUser(Book book, User user);
 }

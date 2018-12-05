@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.css'
 import {inject, observer} from "mobx-react/index";
-import {Button, Label} from "react-bootstrap";
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 
 @inject('bookStore')
@@ -9,46 +9,111 @@ import {Button, Label} from "react-bootstrap";
 export default class CreateBook extends React.Component {
 	constructor(props) {
 		super(props);
-		this.bookTitle = React.createRef();
-		this.author = React.createRef();
-		this.user = JSON.parse(sessionStorage.getItem('user')).id;
-		this.description = React.createRef();
+
+		this.state = {
+			title: '',
+			author: '',
+			user: JSON.parse(sessionStorage.getItem('user')).id,
+			description: ''
+		};
+
+		this.onTitleChange = this.onTitleChange.bind(this);
+		this.onAuthorChange = this.onAuthorChange.bind(this);
+		this.onDescriptionChange = this.onDescriptionChange.bind(this);
 	}
+
+	onTitleChange = e => {
+		this.setState({title: e.target.value})
+	};
+
+	onAuthorChange = e => {
+		this.setState({author: e.target.value})
+	};
+
+	onDescriptionChange = e => {
+		this.setState({description: e.target.value})
+	};
+
+	handleSubmit() {
+		alert("Ваша книга " + this.state.title + " успешно добавлена!");
+		this.create();
+		this.props.history.push('/books');
+	};
 
 	create() {
 		this.props.bookStore.create(
-			this.bookTitle.current.value,
-			this.author.current.value,
-			this.user,
-			this.description.current.value
+			this.state.title,
+			this.state.author,
+			this.state.user,
+			this.state.description
 		)
 	}
 
 	render() {
+
+
+		const text = {
+			title: "Введите название книги...",
+			author: "Введите автора книги...",
+			description: "Краткое описание для пользователей о чём книга...",
+		};
+
+		const tooltip = (text) => (
+			<Tooltip id="tooltip">
+				<strong>
+					{text}
+				</strong>
+			</Tooltip>
+		);
+
 		return (
 			<div>
-				<ul>
-					<li>
-						<label>Название</label>
-						<input type="text" class="masked" placeholder="..." ref={this.bookTitle}/>
-					</li>
+				<form className="create-form"
+					  onSubmit={this.handleSubmit.bind(this)}>
 
-					<li>
-						<label>Автор</label>
-						<input type="text" class="masked" placeholder="..." ref={this.author}/>
-					</li>
+					<h1 className="h1-reg">Create book</h1>
 
-					<li>
-						<label>Описание</label>
-						<textarea class="textarea" ref={this.description}/>
-					</li>
+					<OverlayTrigger placement="left"
+									overlay={tooltip(text.title)}>
+						<input type="text"
+							   placeholder="Title"
+							   name="username"
+							   className="create-input"
+							   required
+							   onChange={this.onTitleChange}
+							   value={this.state.title}
+							   pattern="^[а-яА-ЯёЁa-zA-Z0-9]{1,30}"/>
+					</OverlayTrigger>
 
-					<li>
-						<Button bsSize="xsmall" bsStyle="success" onClick={
-							this.create.bind(this)}> Добавить книгу
-						</Button>
-					</li>
-				</ul>
+
+					<OverlayTrigger placement="left"
+									overlay={tooltip(text.author)}>
+						<input type="text"
+							   placeholder="Author"
+							   name="author"
+							   className="create-input"
+							   required
+							   onChange={this.onAuthorChange}
+							   value={this.state.author}
+							   pattern="^[а-яА-ЯёЁa-zA-Z0-9]{1,30}"/>
+					</OverlayTrigger>
+
+
+					<div className="div-text-area">
+						<OverlayTrigger placement="left"
+										overlay={tooltip(text.description)}>
+						<textarea className="text-area"
+								  onChange={this.onDescriptionChange}
+								  value={this.state.description}
+								  required/>
+						</OverlayTrigger>
+					</div>
+
+
+					<input type="submit"
+						   value="add book"
+						   className="btn-reg btn-block btn-primary"/>
+				</form>
 			</div>
 		)
 	}
