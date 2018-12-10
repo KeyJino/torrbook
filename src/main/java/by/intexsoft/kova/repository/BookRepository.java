@@ -1,6 +1,7 @@
 package by.intexsoft.kova.repository;
 
 import by.intexsoft.kova.entity.Book;
+import by.intexsoft.kova.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -38,6 +39,8 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @param title - filed to search and returning List {@link Book}
      * @return List {@link Book}
      */
-    List<Book> findBookByTitleContaining(@Param("title") String title);
+    List<Book> findBookByTitleContaining(String title);
+
+    List<Book> findBooksByUser(User user);
 
 }

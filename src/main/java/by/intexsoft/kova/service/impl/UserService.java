@@ -1,6 +1,7 @@
 package by.intexsoft.kova.service.impl;
 
 import by.intexsoft.kova.controller.RecordController;
+import by.intexsoft.kova.entity.Role;
 import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.UserRepository;
 import by.intexsoft.kova.service.IUserService;
@@ -89,7 +90,7 @@ public class UserService implements IUserService {
      */
     @Override
     public User inscriptionBookGiven(User user) {
-        ++user.bookGiven;
+        user.bookGiven = user.bookGiven + 1;
         return user;
     }
 
@@ -100,7 +101,18 @@ public class UserService implements IUserService {
      */
     @Override
     public User inscriptionBookTaken(User user) {
-        ++user.bookTaken;
+        user.bookTaken = user.bookTaken + 1;
+        return user;
+    }
+
+    /**
+     * Decrement {@link User} counter to -1.
+     * @param user current {@link User}.
+     * @return updating said {@link User}.
+     */
+    @Override
+    public User decrementBookTaken(User user) {
+        user.bookTaken = user.bookTaken - 1;
         return user;
     }
 
@@ -113,5 +125,21 @@ public class UserService implements IUserService {
     @Override
     public User update(User user) {
         return userRepository.save(user);
+    }
+
+    /**
+     * Banned some user.
+     * @param user current.
+     * @return this user.
+     */
+    @Override
+    public User ban(User user) {
+        user.status = !user.status;
+        return user;
+    }
+
+    @Override
+    public List<User> findByRole(Role role) {
+        return userRepository.findByRole(role);
     }
 }

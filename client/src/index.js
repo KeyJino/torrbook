@@ -34,7 +34,7 @@ const stores = {
 
 ReactDOM.render(
 		<Provider {...stores}>
-			<BrowserRouter basename="/torrbook">
+			<BrowserRouter basename="/torrbook/#">
 				<Main/>
 			</BrowserRouter>
 		</Provider>,

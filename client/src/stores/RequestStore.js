@@ -1,7 +1,7 @@
 import {action, observable} from "mobx";
 
 const CONTEXT_URL = process.env.REACT_APP_API_URL || '';
-const REQUEST_URL = CONTEXT_URL + '/api/requests/';
+const REQUEST_URL = CONTEXT_URL + 'api/requests/';
 
 /**
  * Store for working with Request.
@@ -27,21 +27,14 @@ export default class RequestStore {
 				fetch(REQUEST_URL + "user-" + id)
 					.then(response => response.json())
 					.then(action(requests => this.requests = requests))
-					.catch(error => console.error(error.message));
+					.catch(error => console.log(error.message));
 				break;
 
 			case('MODER'):
-				fetch(REQUEST_URL)
+				fetch(REQUEST_URL + "moder-" + id)
 					.then(response => response.json())
 					.then(action(requests => this.requests = requests))
-					.catch(error => console.error(error.message));
-				break;
-
-			case('ADMIN'):
-				fetch(REQUEST_URL)
-					.then(response => response.json())
-					.then(action(requests => this.requests = requests))
-					.catch(error => console.error(error.message));
+					.catch(error => console.log(error.message));
 				break;
 
 			default: break;
@@ -55,7 +48,7 @@ export default class RequestStore {
 	delete(identity) {
 		fetch(REQUEST_URL + identity, {method: 'DELETE'})
 			.then(() => this.deleteHandler(identity))
-			.catch(e => console.error(e.message))
+			.catch(e => console.log(e.message))
 	}
 
 	/**

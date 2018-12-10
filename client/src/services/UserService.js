@@ -5,4 +5,6 @@ export default class UserService {
 		return (JSON.parse(sessionStorage.getItem('user')))
 			.role.title === role
 	}
+
+
 }

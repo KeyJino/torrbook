@@ -1,7 +1,7 @@
 import {action, observable} from "mobx";
 
 const CONTEXT_URL = process.env.REACT_APP_API_URL || '';
-const USER_URL = CONTEXT_URL + '/api/users/';
+const USER_URL = CONTEXT_URL + 'api/users';
 
 /**
  * Store for working with user in application.
@@ -13,6 +13,9 @@ export default class UserStore {
 	@observable
 	user = null;
 
+	@observable
+	username = undefined;
+
 	/**
 	 * Loading all users from database.
 	 * Fetch request.
@@ -21,21 +24,35 @@ export default class UserStore {
 		fetch(USER_URL)
 			.then(response => response.json())
 			.then(action(users => this.users = users))
-			.catch(error => console.error(error.message))
+			.catch(error => console.log(error.message))
+	}
+
+	loadByRole(role_id) {
+		fetch(USER_URL + "/role-" + role_id)
+			.then(response => response.json())
+			.then(action(users => this.users = users))
+			.catch(error => console.log(error.message))
 	}
 
 	/**
-	 * Fetch POST request to database create user.
-	 * In DEMO hasn't might to create new UserButton.
+	 * Fetch POST request to database createBook user.
+	 * In DEMO hasn't might to createBook new UserButton.
 	 * Only default.
 	 */
-	create() {
+	create(username, password, role) {
 		const params = {
 			method: 'POST',
-			body: 'DEMO',
+			body: JSON.stringify({
+				username: username,
+				about: 'testing',
+				role: {
+					id: role
+				},
+				password: password
+			}),
 			headers: {'Content-Type': 'application/json'}
 		};
-		fetch(USER_URL, params)
+		fetch(USER_URL + "/creating", params)
 			.then(response => response.json())
 			.then(action(user => this.user.push(user)))
 			.catch(e => console.log(e))
@@ -48,7 +65,7 @@ export default class UserStore {
 	delete(identity) {
 		fetch(USER_URL + "/" + identity, {method: 'DELETE'})
 			.then(() => this.deleteHandler(identity))
-			.catch(e => console.error(e.message))
+			.catch(e => console.log(e.message))
 	}
 
 	/**
@@ -61,6 +78,26 @@ export default class UserStore {
 		if (itemIndex > -1) {
 			this.users.splice(itemIndex, 1);
 		}
+	}
+
+	check(username) {
+		fetch(USER_URL + "/" + username)
+			.then(response => response.json())
+			.then(action(response => this.username = response.username))
+			.catch(e => console.log(e));
+	}
+
+	ban(user_id) {
+		fetch(USER_URL + "/ban-" + user_id)
+			.then(response => response.json())
+			.then(() => this.banHandler(user_id))
+			.catch(e => console.log(e))
+	}
+
+	@action
+	banHandler(user_id) {
+		const itemIndex = this.users.findIndex(({id}) => id === user_id);
+		this.users[itemIndex].status = !this.users[itemIndex].status;
 	}
 
 	/**

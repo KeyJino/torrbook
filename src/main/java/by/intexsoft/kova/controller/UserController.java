@@ -3,9 +3,10 @@ package by.intexsoft.kova.controller;
 import by.intexsoft.kova.entity.Role;
 import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.UserRepository;
+import by.intexsoft.kova.service.IRoleService;
 import by.intexsoft.kova.service.IUserService;
-import by.intexsoft.kova.service.impl.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,26 +16,22 @@ import java.util.List;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @Slf4j
 public class UserController {
 
-    private final
+    @Autowired
     IUserService userService;
 
-    /**
-     * Default constructor
-     */
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    IRoleService roleService;
 
     /**
      * Get all {@link User}.
      *
      * @return List {@link User}.
      */
-    @GetMapping("/")
+    @GetMapping
     public List<User> getAll() {
         return userService.findAll();
     }
@@ -55,8 +52,27 @@ public class UserController {
      * @param user for saving to {@link UserRepository}.
      * @return saving {@link User}.
      */
-    @PostMapping
+    @PostMapping("/creating")
     public User create(@RequestBody User user) {
-        return userService.save(user);
+        userService.save(user);
+        return user;
+    }
+
+    @GetMapping("/{username}")
+    public by.intexsoft.kova.entity.User isCreatedUsername(@PathVariable String username) {
+        return userService.findByUsername(username);
+    }
+
+    @GetMapping("/ban-{user_id}")
+    public User ban(@PathVariable int user_id) {
+        User user = userService.findById(user_id);
+        userService.ban(user);
+        return userService.update(user);
+    }
+
+    @GetMapping("/role-{role_id}")
+    public List<User> findByRole(@PathVariable int role_id) {
+        Role role = roleService.findById(role_id);
+        return userService.findByRole(role);
     }
 }

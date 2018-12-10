@@ -73,6 +73,15 @@ public class RequestController {
         book.request = !book.request;
         bookService.save(book);
 
+        User moder = userService.findById(request.book.user.getId());
+        userService.decrementBookTaken(moder);
+        userService.inscriptionBookGiven(moder);
+        userService.update(moder);
+
+        User user = userService.findById(request.user.getId());
+        userService.inscriptionBookTaken(user);
+        userService.update(user);
+
         Record record = recordService.build(request.book, request.user, "Тут описание");
         recordService.save(record);
     }
@@ -112,7 +121,22 @@ public class RequestController {
      */
     @GetMapping("/user-{user_id}")
     @PreAuthorize("hasAuthority('USER')")
-    public List<Request> loadById(@PathVariable int user_id) {
+    public List<Request> loadByUserId(@PathVariable int user_id) {
         return requestService.findAllById(user_id);
+    }
+
+    @GetMapping("/moder-{user_id}")
+    @PreAuthorize("hasAuthority('MODER')")
+    public List<Request> loadByModerId(@PathVariable int user_id) {
+        User user = userService.findById(user_id);
+        return requestService.findByBookUser(user);
+    }
+
+    @GetMapping("/book-{book_id}-user-{user_id}")
+    @PreAuthorize("hasAuthority('USER')")
+    public Request findRequestByBookAndUser(@PathVariable int book_id, @PathVariable int user_id) {
+        Book book = bookService.findById(book_id);
+        User user = userService.findById(user_id);
+        return requestService.findRequestByBookAndUser(book, user);
     }
 }

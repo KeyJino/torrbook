@@ -68,16 +68,34 @@ public class RecordController {
 
         Book book = record.book;
         book = bookService.changeRequestStateById(book.getId());
-        book = bookService.changeStateById(book.getId());
+        book = bookService.changeStateById(book.getId()); //возможно баг
         bookService.save(book);
 
-        User user = record.user;
-        user = userService.inscriptionBookTaken(user);
-        userService.update(user);
+        User moder = record.book.user;
+        System.out.println("Moder id:" + moder.getId() + " name: " + moder.username);
 
-        user = record.book.user;
-        user = userService.inscriptionBookTaken(user);
-        user = userService.inscriptionBookGiven(user);
+        System.out.println("Moder метод incrementBookTaken ДО:" + moder.bookTaken);
+        userService.inscriptionBookTaken(moder); // модеру увеличиваем общее количество книг
+        System.out.println("Moder метод incrementBookTaken ПОСЛЕ:" + moder.bookTaken);
+
+        System.out.println("Moder метод сохранение BookTaken/Given:" + moder.bookTaken + " / " + moder.bookGiven);
+        userService.update(moder);
+
+
+
+        User user = record.user;
+        System.out.println("Moder id:" + user.getId() + " name: " + user.username);
+
+        System.out.println("Moder метод decrementBookTaken ДО:" + user.bookTaken);
+        userService.decrementBookTaken(user); //по возвращению юзеру уменьшаем "взятых книг"
+        System.out.println("Moder метод decrementBookTaken ПОСЛЕ:" + user.bookTaken);
+
+
+        System.out.println("Moder метод incrementBookGiven ПОСЛЕ:" + user.bookGiven);
+        userService.inscriptionBookGiven(user); // и увеличиваем возвращённых
+        System.out.println("Moder метод incrementBookGiven ПОСЛЕ:" + user.bookGiven);
+
+        System.out.println("User метод сохранение BookTaken/Given:" + user.bookTaken + " / " + user.bookGiven);
         userService.update(user);
 
         recordService.removeById(id);

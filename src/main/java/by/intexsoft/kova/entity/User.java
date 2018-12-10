@@ -48,4 +48,10 @@ public class User extends AbstractPersistable<Integer> {
     @ManyToOne
     @JoinColumn(name = "role_id")
     public Role role;
+
+    /**
+     * User will be banned by ADMIN;
+     */
+    @Column(name = "status")
+    public boolean status;
 }

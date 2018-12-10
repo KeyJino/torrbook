@@ -30,11 +30,13 @@ export default class AuthStore {
 			body: formData,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 		};
-		fetch(CONTEXT_URL + '/login', params)
+		fetch(CONTEXT_URL + 'login', params)
 			.then(response => response.json())
 			.then(action(user => {
-				sessionStorage.setItem('user', JSON.stringify(user));
-				this.user = user;
+				if (!user.status) {
+					sessionStorage.setItem('user', JSON.stringify(user));
+					this.user = user;
+				}
 			}))
 			.catch(e => {
 				console.log(e);
@@ -46,7 +48,7 @@ export default class AuthStore {
 	 * logOut from application.
 	 */
 	logOut() {
-		fetch(CONTEXT_URL + '/logout', {method: 'POST'})
+		fetch(CONTEXT_URL + 'logout', {method: 'POST'})
 			.then(() => {
 				this.user = null;
 				sessionStorage.clear();

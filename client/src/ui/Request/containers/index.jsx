@@ -1,6 +1,7 @@
 import React from "react";
 import {inject, observer} from 'mobx-react';
-import {Button, Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
+import './index.css'
 
 @inject('requestStore', 'userService')
 @observer
@@ -20,14 +21,14 @@ export default class Request extends React.Component {
 
 	render() {
 		const {props: {requestStore: {requests}}} = this;
-		const role = this.props.userService.checkRole;
 
+		const role = this.props.userService.checkRole;
 
 		return (
 			<Table>
 				<thead>
 				<tr>
-					<th>Состояние</th>
+					<th>Действие</th>
 					<th>Статус</th>
 					<th>Название книги</th>
 					<th>Пользователь</th>
@@ -36,65 +37,73 @@ export default class Request extends React.Component {
 
 				{
 					(role('MODER')
-						? (
-							<tbody>
-							{
-								requests.map(({id: request_id, state, book, user}) => (
-										<tr key={request_id}>
-											<td>
-												<Button bsSize="small" bsStyle="danger"
-														onClick={() => this.delete(request_id)}>Удалить</Button>
-												<Button bsSize="small" bsStyle="success"
-														onClick={() => this.approve(request_id)}>Одобрить</Button>
-											</td>
+							? (
+								<tbody>
+								{
+									requests.map(({id: request_id, state, book, user}) => (
+											<tr key={request_id}>
+												<td>
+													<input type="button"
+														   value="Удалить"
+														   className="request-req-inp-del"
+														   onClick={() => this.delete(request_id)}/>
 
-											<td>
-												{state ? "Запрос выполнен" : "На рассмотрении"}
-											</td>
-											<td>
-												{book.title}
-											</td>
-											<td>
-												{user.username}
-											</td>
-										</tr>
+													<input type="button"
+														   value="Одобрить"
+														   className="request-req-inp-app"
+														   onClick={() => this.approve(request_id)}
+														   disabled={state}/>
+												</td>
+
+												<td>
+													{state ? "Запрос выполнен" : "На рассмотрении"}
+												</td>
+												<td>
+													{book.title}
+												</td>
+												<td>
+													{user.username}
+												</td>
+											</tr>
+										)
 									)
-								)
-							}
-							</tbody>
-						)
-						: null
+								}
+								</tbody>
+							)
+							: null
 					)
 				}
 
 				{
 					(role('USER')
-						? (
-							<tbody>
-							{
-								requests.map(({id: request_id, state, book, user}) => (
-										<tr key={request_id}>
-											<td>
-												<Button bsSize="small" bsStyle="danger"
-														onClick={() => this.delete(request_id)}>Удалить</Button>
+							? (
+								<tbody>
+								{
+									requests.map(({id: request_id, state, book, user}) => (
+											<tr key={request_id}>
+												<td>
+													<input type="button"
+														   value="Удалить"
+														   className="request-req-inp-del"
+														   onClick={() => this.delete(request_id)}/>
 
-											</td>
-											<td>
-												{state ? "Запрос выполнен" : "На рассмотрении"}
-											</td>
-											<td>
-												{book.title}
-											</td>
-											<td>
-												{user.username}
-											</td>
-										</tr>
+												</td>
+												<td>
+													{state ? "Запрос выполнен" : "На рассмотрении"}
+												</td>
+												<td>
+													{book.title}
+												</td>
+												<td>
+													{book.user.username}
+												</td>
+											</tr>
+										)
 									)
-								)
-							}
-							</tbody>
-						)
-						: null
+								}
+								</tbody>
+							)
+							: null
 					)
 				}
 			</Table>

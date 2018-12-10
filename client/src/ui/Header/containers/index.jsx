@@ -2,6 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {Link} from 'react-router-dom';
 import {Nav, Navbar, NavItem} from "react-bootstrap";
+import Request from "../../Request/containers";
 
 
 @inject('authStore', 'userService')
@@ -32,18 +33,26 @@ export default class Header extends React.Component {
 							<Navbar.Collapse>
 								<Nav>
 									<Navbar.Brand eventKey={2}>
-										<Link to="/books"> Книги </Link>
+										<Link to="/books"> книги </Link>
 									</Navbar.Brand>
-									<Navbar.Brand eventKey={3}>
-										<Link to="/request"> Запросы </Link>
-									</Navbar.Brand>
-									<Navbar.Brand eventKey={4}>
-										<Link to="/records"> Записи </Link>
-									</Navbar.Brand>
+
+									{(role('USER') || role('MODER')) ?
+										<Navbar.Brand eventKey={3}>
+											<Link to="/request"> журнал </Link>
+										</Navbar.Brand>
+										 : null
+									}
+
+									{(role('USER') || role('MODER')) ?
+										<Navbar.Brand eventKey={4}>
+											<Link to="/records"> сделки </Link>
+										</Navbar.Brand>
+										: null
+									}
 
 									{role('MODER') ?
 										<Navbar.Brand eventKey={4}>
-											<Link to="/creating"> Добавить книгу </Link>
+											<Link to="/creating"> добавить книгу </Link>
 										</Navbar.Brand>
 										: null
 									}

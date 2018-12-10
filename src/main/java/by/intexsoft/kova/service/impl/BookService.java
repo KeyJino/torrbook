@@ -1,6 +1,7 @@
 package by.intexsoft.kova.service.impl;
 
 import by.intexsoft.kova.entity.Book;
+import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.BookRepository;
 import by.intexsoft.kova.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,6 +120,11 @@ public class BookService implements IBookService {
     @Override
     public List<Book> findBookByTitle(String title) {
         return bookRepository.findBookByTitleContaining(title);
+    }
+
+    @Override
+    public List<Book> findBooksByUser(User user) {
+        return bookRepository.findBooksByUser(user);
     }
 
 }
