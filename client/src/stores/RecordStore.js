@@ -1,7 +1,7 @@
 import {action, observable} from "mobx";
 
 const CONTEXT_URL = process.env.REACT_APP_API_URL || '';
-const RECORD_URL = CONTEXT_URL + '/api/records/';
+const RECORD_URL = CONTEXT_URL + 'api/records/';
 
 /**
  * Store for working with Records.

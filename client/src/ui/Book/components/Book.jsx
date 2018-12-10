@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Book.css"
 
-const image  =  "/resources/images/";
+const image  =  "resources/images/";
 
 export default class Book extends React.Component {
 
@@ -12,19 +12,21 @@ export default class Book extends React.Component {
 		this.bookState = props.bookState;
 		this.url = props.image.url;
 		this.btn = props.btn;
+		this.description = props.description;
 	}
 
 	render() {
+
+
 		return (
 			<div>
 				<ul className="ul">
 					<li className="li">
 						<img src={image + this.url} className="avatar" alt="avatar"/>
 						<div className="lines">
-							{this.title}
+							<h4>{this.title}</h4>
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus urna non turpis
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus urna non turpis
+								{this.description}
 							</p>
 						</div>
 						{this.btn}

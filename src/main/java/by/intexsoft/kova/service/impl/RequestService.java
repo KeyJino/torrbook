@@ -99,4 +99,11 @@ public class RequestService implements IRequestService {
     public Request findRequestByBookAndUser(Book book, User user) {
         return requestRepository.findRequestByBookAndUser(book, user);
     }
+
+    @Override
+    public List<Request> findByBookUser(User user) {
+        return requestRepository.findByBook_User(user);
+    }
+
+
 }

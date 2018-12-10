@@ -19,7 +19,7 @@
     bottom: -40px;
     width: auto;
     height: auto;
-    background-image: url("main.jpg");
+    background-image: url("index.jpg");
     background-size: cover;
     -webkit-filter: blur(5px);
     z-index: 0;

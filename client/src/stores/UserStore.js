@@ -1,7 +1,7 @@
 import {action, observable} from "mobx";
 
 const CONTEXT_URL = process.env.REACT_APP_API_URL || '';
-const USER_URL = CONTEXT_URL + '/api/users';
+const USER_URL = CONTEXT_URL + 'api/users';
 
 /**
  * Store for working with user in application.
@@ -24,19 +24,19 @@ export default class UserStore {
 		fetch(USER_URL)
 			.then(response => response.json())
 			.then(action(users => this.users = users))
-			.catch(error => console.error(error.message))
+			.catch(error => console.log(error.message))
 	}
 
 	loadByRole(role_id) {
 		fetch(USER_URL + "/role-" + role_id)
 			.then(response => response.json())
 			.then(action(users => this.users = users))
-			.catch(error => console.error(error.message))
+			.catch(error => console.log(error.message))
 	}
 
 	/**
-	 * Fetch POST request to database create user.
-	 * In DEMO hasn't might to create new UserButton.
+	 * Fetch POST request to database createBook user.
+	 * In DEMO hasn't might to createBook new UserButton.
 	 * Only default.
 	 */
 	create(username, password, role) {
@@ -65,7 +65,7 @@ export default class UserStore {
 	delete(identity) {
 		fetch(USER_URL + "/" + identity, {method: 'DELETE'})
 			.then(() => this.deleteHandler(identity))
-			.catch(e => console.error(e.message))
+			.catch(e => console.log(e.message))
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package by.intexsoft.kova.service;
 
 import by.intexsoft.kova.entity.Book;
+import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.BookRepository;
 import by.intexsoft.kova.service.impl.BookService;
 
@@ -69,5 +70,7 @@ public interface IBookService {
     Book changeRequestStateById(int id);
 
     List<Book> findBookByTitle(String title);
+
+    List<Book> findBooksByUser(User user);
 
 }

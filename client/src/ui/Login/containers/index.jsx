@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import "./styles.css"
+import "./index.css"
 import {Link, withRouter} from "react-router-dom";
 
 @withRouter
@@ -35,7 +35,11 @@ export default class Login extends React.Component {
 					<input type="password" placeholder="Password" name="password" ref={this.password}
 					className="input-log-pass"/>
 
-					<input type="button" onClick={this.signIn.bind(this)} value="Login"
+					<input type="button"
+						   onClick={this.signIn.bind(this)}
+						   onKeyDown={(e) => e.key === '13' ? this.signIn.bind(this) : null}
+						   value="Login"
+
 					className="input-log-btn"/>
 
 					<Link to="/registration"><input type="button" value="Register"

@@ -5,8 +5,6 @@ import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.UserRepository;
 import by.intexsoft.kova.service.IRoleService;
 import by.intexsoft.kova.service.IUserService;
-import by.intexsoft.kova.service.impl.RoleService;
-import by.intexsoft.kova.service.impl.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,8 +1,8 @@
 import {action, observable} from "mobx";
 
 const CONTEXT_URL = process.env.REACT_APP_API_URL || '';
-const BOOK_URL = CONTEXT_URL + '/api/user/books';
-const REQUEST_BOOK_URL = CONTEXT_URL + '/api/requests';
+const BOOK_URL = CONTEXT_URL + 'api/user/books';
+const REQUEST_BOOK_URL = CONTEXT_URL + 'api/requests';
 
 /**
  * Store for working with Book.
@@ -29,27 +29,42 @@ export default class BookStore {
 		fetch(BOOK_URL)
 			.then(response => response.json())
 			.then(action(books => this.books = books))
-			.catch(error => console.error(error.message))
+			.catch(error => console.log(error.message))
 	}
 
+	loadById(user_id) {
+		fetch(BOOK_URL + '/load' + user_id)
+			.then(response => response.json())
+			.then(action(books => this.books = books))
+			.catch(error => console.log(error.message))
+	}
+
+
 	findBookByTitle(title) {
-		console.log(title);
+		title = title.replace(/\s/g, '_');
+		// let xhr = new XMLHttpRequest();
+		// let params = title;
+
+		// console.log(params);
+		// xhr.open("GET", BOOK_URL + '/' + '&' + params, true);
+		// xhr.send();
+
 		fetch(BOOK_URL + "/" + "&" + title)
 			.then(response => response.json())
 			.then(action(books => this.books = books))
-			.catch(error => console.error(error.message))
+			.catch(error => console.log(error.message))
 	}
 
 	/**
 	 * Creating Book. In DEMO version all data generating automatically.
 	 */
-	create(title, author, user, description) {
+	createBook(title, author, user, description) {
 		const params = {
 			method: 'POST',
 			body: JSON.stringify(BookStore.generate(title,  author, user, description)),
 			headers: {'Content-Type': 'application/json'}
 		};
-		fetch(BOOK_URL + "/creating", params)
+		fetch(BOOK_URL + "/book-creating", params)
 			.then(response => response.json())
 			.then(action(book => this.books.push(book)))
 			.catch(e => console.log(e))
@@ -62,7 +77,7 @@ export default class BookStore {
 	delete(identity) {
 		fetch(BOOK_URL + "/" + identity, {method: 'DELETE'})
 			.then(() => this.deleteHandler(identity))
-			.catch(e => console.error(e.message))
+			.catch(e => console.log(e.message))
 	}
 
 	/**

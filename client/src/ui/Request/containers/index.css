@@ -1,0 +1,93 @@
+.book-del-inp {
+    margin-left: 10px;
+}
+
+.request-req-inp-del {
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 5px;
+    padding: 3px 10px;
+    font-size: 10px;
+    line-height: 7px;
+    height: 26px;
+    color: rgb(226, 226, 226);
+    background-color: rgb(202, 39, 39);
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    border-color: transparent;
+    border-radius: 5px;
+}
+
+.request-req-inp-app {
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 3px 0;
+    padding: 3px 10px;
+    font-size: 10px;
+    line-height: 7px;
+    height: 26px;
+    color: rgb(226, 226, 226);
+    background-color: rgb(24, 178, 59);
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    border-color: transparent;
+    border-radius: 5px;
+}
+
+
+
+.request-req-inp-del:focus {
+    outline: 0;
+    outline-offset: 0;
+    box-shadow: 0.2em 0.2em 2px rgba(122,122,122,0.5);
+}
+
+.request-req-inp-del:hover {
+    outline: 0;
+    outline-offset: 0;
+    background-color: rgb(255, 49, 35);
+    color: rgb(234,234,234);
+    border-color: transparent;
+    box-shadow: 0.2em 0.2em 2px rgba(122,122,122,0.5);
+}
+
+.request-req-inp-del:active {
+    outline: 0;
+    outline-offset: 0;
+    padding-top: 5px;
+    background-color: rgb(255, 49, 35);
+    color: rgb(234,234,234);
+    border-color: transparent;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+}
+
+.request-req-inp-del:after {
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+}
+
+.request-req-inp-app:focus {
+    outline: 0;
+    outline-offset: 0;
+    box-shadow: 0.2em 0.2em 2px rgba(122,122,122,0.5);
+}
+
+.request-req-inp-app:hover {
+    outline: 0;
+    outline-offset: 0;
+    background-color: rgb(61, 236, 60);
+    color: rgb(234,234,234);
+    border-color: transparent;
+    box-shadow: 0.2em 0.2em 2px rgba(122,122,122,0.5);
+}
+
+.request-req-inp-app:active {
+    outline: 0;
+    outline-offset: 0;
+    padding-top: 5px;
+    background-color: rgb(61, 236, 60);
+    color: rgb(234,234,234);
+    border-color: transparent;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+}
+
+.request-req-inp-app:after {
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+}

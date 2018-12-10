@@ -9,23 +9,16 @@
     </b:bean>
 
     <http authentication-manager-ref="manager" auto-config="true" use-expressions="true">
-        <intercept-url pattern="/api/users**" access="permitAll()"/>
-        <intercept-url pattern="/api/books**" access="hasAuthority('USER')"/>
-        <intercept-url pattern="/api/requests**" access="hasAuthority('USER')"/>
-        <intercept-url pattern="/admin**" access="hasAuthority('ADMIN')"/>
+        <intercept-url pattern="/api/user**" access="permitAll()"/>
+        <intercept-url pattern="/api/books**" access="hasAnyAuthority('USER', 'MODER', 'ADMIN')"/>
+        <intercept-url pattern="/api/requests**" access="hasAnyAuthority('USER', 'MODER')"/>
+        <intercept-url pattern="/api/records**" access="hasAnyAuthority('USER', 'MODER')"/>
         <security:form-login login-processing-url="/login"
                              username-parameter="username"
                              password-parameter="password"
                              default-target-url="/api/qiwi"
                              always-use-default-target="true"/>
-
-        <!--login-page='/login'-->
-        <!--<security:logout logout-url="/logout"-->
-                         <!--logout-success-url="/"/>-->
-        <!--<security:logout logout-url="/api/vitya/" logout-success-url="/api/"/>-->
-        <!--<logout logout-success-url="/login?logout" />-->
         <csrf disabled="true"/>
-
     </http>
 
     <b:bean id="encoder"

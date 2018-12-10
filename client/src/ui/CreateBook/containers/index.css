@@ -11,6 +11,12 @@
     color: #444;
 }
 
+.create-h1 {
+    color: #098cc8;
+    text-shadow: #efefef 1px 1px 0, #cad5e2 2px 2px 0,
+    #cad5e2 3px 3px 0, 0.1em 0.1em 5px rgba(122,122,122,0.5);
+
+}
 .create-input {
     height:30px;
     width:100%;
@@ -46,7 +52,6 @@
 }
 
 .div-text-area {
-    position: fixed;
     width: 100%;
     text-align: center;
     display: inline-block;

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './registration.css'
+import './index.css'
 import {inject} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";

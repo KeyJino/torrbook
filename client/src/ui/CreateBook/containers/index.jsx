@@ -13,10 +13,9 @@ export default class CreateBook extends React.Component {
 		this.state = {
 			title: '',
 			author: '',
-			user: JSON.parse(sessionStorage.getItem('user')).id,
 			description: ''
 		};
-
+		this.user = JSON.parse(sessionStorage.getItem('user')).id;
 		this.onTitleChange = this.onTitleChange.bind(this);
 		this.onAuthorChange = this.onAuthorChange.bind(this);
 		this.onDescriptionChange = this.onDescriptionChange.bind(this);
@@ -36,18 +35,14 @@ export default class CreateBook extends React.Component {
 
 	handleSubmit() {
 		alert("Ваша книга " + this.state.title + " успешно добавлена!");
-		this.create();
-		this.props.history.push('/books');
-	};
-
-	create() {
-		this.props.bookStore.create(
+		this.props.bookStore.createBook(
 			this.state.title,
 			this.state.author,
-			this.state.user,
+			this.user,
 			this.state.description
-		)
-	}
+		);
+		this.props.history.push('/#/books');
+	};
 
 	render() {
 
@@ -71,7 +66,7 @@ export default class CreateBook extends React.Component {
 				<form className="create-form"
 					  onSubmit={this.handleSubmit.bind(this)}>
 
-					<h1 className="h1-reg">Create book</h1>
+					<h1 className="create-h1">Create book</h1>
 
 					<OverlayTrigger placement="left"
 									overlay={tooltip(text.title)}>
@@ -82,7 +77,7 @@ export default class CreateBook extends React.Component {
 							   required
 							   onChange={this.onTitleChange}
 							   value={this.state.title}
-							   pattern="^[а-яА-ЯёЁa-zA-Z0-9]{1,30}"/>
+							   pattern="^[а-яА-ЯёЁa-zA-Z0-9_ ]{1,30}"/>
 					</OverlayTrigger>
 
 
@@ -95,7 +90,7 @@ export default class CreateBook extends React.Component {
 							   required
 							   onChange={this.onAuthorChange}
 							   value={this.state.author}
-							   pattern="^[а-яА-ЯёЁa-zA-Z0-9]{1,30}"/>
+							   pattern="^[а-яА-ЯёЁa-zA-Z0-9_ ]{1,30}"/>
 					</OverlayTrigger>
 
 
@@ -103,6 +98,7 @@ export default class CreateBook extends React.Component {
 						<OverlayTrigger placement="left"
 										overlay={tooltip(text.description)}>
 						<textarea className="text-area"
+								  maxlength="200"
 								  onChange={this.onDescriptionChange}
 								  value={this.state.description}
 								  required/>
