@@ -58,11 +58,21 @@ public class UserController {
         return user;
     }
 
+    /**
+     * Getting {@link User} by here name.
+     * @param username name for searching.
+     * @return {@link User}.
+     */
     @GetMapping("/{username}")
     public by.intexsoft.kova.entity.User isCreatedUsername(@PathVariable String username) {
         return userService.findByUsername(username);
     }
 
+    /**
+     * Banning current {@link User}.
+     * @param user_id of {@link User}.
+     * @return this user.
+     */
     @GetMapping("/ban-{user_id}")
     public User ban(@PathVariable int user_id) {
         User user = userService.findById(user_id);
@@ -70,6 +80,11 @@ public class UserController {
         return userService.update(user);
     }
 
+    /**
+     * Finding all {@link User} by {@link Role}.
+     * @param role_id for searching.
+     * @return List {@link User} with current role.
+     */
     @GetMapping("/role-{role_id}")
     public List<User> findByRole(@PathVariable int role_id) {
         Role role = roleService.findById(role_id);

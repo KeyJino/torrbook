@@ -3,7 +3,13 @@
     text-align: center;
 }
 
+.div-btn-book {
+    width: 100%;
+    text-align: right;
+}
+
 .book-del-inp {
+    text-align: right;
     white-space: nowrap;
     overflow: hidden;
     margin: 3px 0;

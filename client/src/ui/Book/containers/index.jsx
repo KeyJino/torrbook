@@ -94,6 +94,7 @@ export default class Books extends React.Component {
 					({
 						 id: book_id,
 						 title,
+						 author,
 						 state,
 						 request,
 						 description,
@@ -104,6 +105,7 @@ export default class Books extends React.Component {
 								<Book
 									book_id={book_id}
 									title={title}
+									author={author}
 									bookState={state && !request ?
 										"Можно взять" : request ?
 											"В запросах" : "На руках"}
@@ -111,22 +113,26 @@ export default class Books extends React.Component {
 									description={description}
 									btn={
 										role('MODER') ?
-											<input type="button"
-												   value="Удалить"
-												   className="book-del-inp"
-												   onClick={() =>
-													   this.props.bookStore.delete(book_id)}/> :
+											<div className="div-btn-book">
+												<input type="button"
+													   value="Удалить"
+													   className="book-del-inp"
+													   onClick={() =>
+														   this.props.bookStore.delete(book_id)}/>
+											</div> :
 
 
 											role('USER') ?
-												<input type="button"
-													   value="Попросить"
-													   className="book-req-inp"
-													   onClick={() => {
-														   this.addRequest(book_id);
-														   this.changeBookRequest(book_id);
-													   }}
-												/>
+												<div className="div-btn-book">
+													<input type="button"
+														   value="Попросить"
+														   className="book-req-inp"
+														   onClick={() => {
+															   this.addRequest(book_id);
+															   this.changeBookRequest(book_id);
+														   }}
+													/>
+												</div>
 												: null
 									}
 								/> : null

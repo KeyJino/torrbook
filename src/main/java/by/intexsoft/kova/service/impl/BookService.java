@@ -53,18 +53,6 @@ public class BookService implements IBookService {
         return book;
     }
 
-    @Deprecated
-    @Override
-    public List<Book> findByAuthor(String title) {
-        return bookRepository.findByAuthor(title);
-    }
-
-    @Deprecated
-    @Override
-    public List<Book> findByDescription(String description) {
-        return bookRepository.findByDescription(description);
-    }
-
     /**
      * Change {@link Book}'s state by there Id.
      *
@@ -117,11 +105,23 @@ public class BookService implements IBookService {
         return book;
     }
 
+    /**
+     * Finding {@link Book}s with current title.
+     *
+     * @param title current title.
+     * @return all suitable {@link Book}.
+     */
     @Override
     public List<Book> findBookByTitle(String title) {
         return bookRepository.findBookByTitleContaining(title);
     }
 
+    /**
+     * Finding {@link Book}s with current user.
+     *
+     * @param user current {@link User}.
+     * @return all suitable {@link Book}.
+     */
     @Override
     public List<Book> findBooksByUser(User user) {
         return bookRepository.findBooksByUser(user);

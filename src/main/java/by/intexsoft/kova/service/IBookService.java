@@ -31,6 +31,7 @@ public interface IBookService {
 
     /**
      * Create new {@link Book} in {@link BookRepository}.
+     *
      * @param book - {@link Book} for saving.
      * @return this {@link Book}.
      */
@@ -38,6 +39,7 @@ public interface IBookService {
 
     /**
      * Finding {@link Book} by Book's Id.
+     *
      * @param id - this {@link Book}.
      * @return searched {@link Book}.
      */
@@ -45,18 +47,14 @@ public interface IBookService {
 
     /**
      * Method get all {@link BookRepository}.
+     *
      * @return List{@link Book}s from {@link BookRepository}.
      */
     List<Book> findAll();
 
-    @Deprecated
-    List<Book> findByAuthor(String title);
-
-    @Deprecated
-    List<Book> findByDescription(String description);
-
     /**
      * Change {@link Book}'s state by there Id.
+     *
      * @param id of {@link Book}.
      * @return {@link Book} with changes.
      */
@@ -64,13 +62,24 @@ public interface IBookService {
 
     /**
      * Change request state {@link Book}, using there ID.
+     *
      * @param id if {@link Book}.
      * @return {@link Book} with changes.
      */
     Book changeRequestStateById(int id);
 
+    /**
+     * Finding all {@link Book}s by here title.
+     * @param title current title.
+     * @return List of Books.
+     */
     List<Book> findBookByTitle(String title);
 
+    /**
+     * Finding all {@link Book}s by here title.
+     * @param user current user.
+     * @return List of Books.
+     */
     List<Book> findBooksByUser(User user);
 
 }

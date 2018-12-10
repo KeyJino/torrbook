@@ -89,5 +89,11 @@ public interface IUserService {
      */
     User ban(User user);
 
+    /**
+     * Finding {@link User} by {@link Role}.
+     *
+     * @param role current {@link Role}.
+     * @return List of {@link User}.
+     */
     List<User> findByRole(Role role);
 }

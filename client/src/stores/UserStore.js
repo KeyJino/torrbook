@@ -27,6 +27,13 @@ export default class UserStore {
 			.catch(error => console.log(error.message))
 	}
 
+	loadByName (username) {
+		fetch(USER_URL + "/" + username)
+			.then(response => response.json())
+			.then(action(user => this.user = user))
+			.catch(error => console.log(error.message))
+	}
+
 	loadByRole(role_id) {
 		fetch(USER_URL + "/role-" + role_id)
 			.then(response => response.json())
