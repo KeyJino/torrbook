@@ -3,8 +3,6 @@ package by.intexsoft.kova.repository;
 import by.intexsoft.kova.entity.Book;
 import by.intexsoft.kova.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -14,26 +12,6 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
     /**
-     * Finding all {@link Book}'s by author
-     *
-     * @param author - filed to search and returning List {@link Book}
-     * @return List {@link Book}
-     */
-    @Query("select book from Book book where book.author=:author")
-    List<Book> findByAuthor(@Param("author") String author);
-
-
-    /**
-     * Finding all {@link Book}'s by description
-     *
-     * @param description - filed to search and returning List {@link Book}
-     * @return List {@link Book}
-     */
-    @Query("select book from Book book where book.description=:description")
-    List<Book> findByDescription(@Param("description") String description);
-
-
-    /**
      * Finding all {@link Book}'s by title
      *
      * @param title - filed to search and returning List {@link Book}
@@ -41,6 +19,12 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      */
     List<Book> findBookByTitleContaining(String title);
 
+    /**
+     * Finding {@link Book}s by {@link User}.
+     *
+     * @param user current {@link User}.
+     * @return List of Books.
+     */
     List<Book> findBooksByUser(User user);
 
 }

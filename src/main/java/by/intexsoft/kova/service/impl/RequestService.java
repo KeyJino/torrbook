@@ -75,35 +75,24 @@ public class RequestService implements IRequestService {
     }
 
     /**
-     * Get all {@link Request} using {@link Book}Id.
+     * Finding all {@link Request}s.
      *
-     * @param book_id of {@link Book}.
+     * @param user_id of {@link User}.
      * @return List {@link Request}.
      */
     @Override
-    public List<Request> findAllRequests(int book_id){
-        return requestRepository.findAllRequests(book_id);
+    public List<Request> findAllByUserId(int user_id) {
+        return requestRepository.findAllByUserId(user_id);
     }
 
     /**
-     * Finding all {@link Request}s.
-     * @param user_take_id of {@link User}.
-     * @return List {@link Request}.
+     * Finding {@link Request}s by Book_User
+     *
+     * @param user current {@link User}.
+     * @return List of Requests.
      */
-    @Override
-    public List<Request> findAllById(int user_take_id) {
-        return requestRepository.findAllById(user_take_id);
-    }
-
-    @Override
-    public Request findRequestByBookAndUser(Book book, User user) {
-        return requestRepository.findRequestByBookAndUser(book, user);
-    }
-
     @Override
     public List<Request> findByBookUser(User user) {
         return requestRepository.findByBook_User(user);
     }
-
-
 }

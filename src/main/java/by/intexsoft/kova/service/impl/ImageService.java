@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+/**
+ * Service for feature working with {@link Image}s.
+ * Now not using.
+ */
+@Deprecated
 public class ImageService implements IImageService {
-
 
     @Autowired
     ImageRepository imageRepository;
