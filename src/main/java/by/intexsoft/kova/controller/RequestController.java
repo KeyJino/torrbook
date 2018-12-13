@@ -21,21 +21,28 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/requests")
-@Slf4j
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class RequestController {
 
-    @Autowired
+    final private
     IRequestService requestService;
 
-    @Autowired
+    final private
     IBookService bookService;
 
-    @Autowired
+    final private
     IRecordService recordService;
 
-    @Autowired
+    final private
     IUserService userService;
+
+    @Autowired
+    public RequestController(IRequestService requestService, IBookService bookService, IRecordService recordService, IUserService userService) {
+        this.requestService = requestService;
+        this.bookService = bookService;
+        this.recordService = recordService;
+        this.userService = userService;
+    }
 
     /**
      * Method for {@link Role} 'MODER'.
@@ -67,7 +74,7 @@ public class RequestController {
      */
     @PostMapping("/approve-{id}")
     public void approve(@RequestBody Request request, @PathVariable int id) {
-        requestService.save(request);
+        requestService.remove(request);
 
         Book book = bookService.changeStateById(request.book.getId());
         book.request = !book.request;

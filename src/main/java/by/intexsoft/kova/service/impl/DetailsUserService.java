@@ -20,8 +20,13 @@ import java.util.Set;
 @Service
 public class DetailsUserService implements UserDetailsService {
 
+    private final
+    UserService userService;
+
     @Autowired
-    private UserService userService;
+    public DetailsUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Download user by username.

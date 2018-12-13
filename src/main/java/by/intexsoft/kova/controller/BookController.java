@@ -21,11 +21,17 @@ import java.util.List;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class BookController {
 
-    @Autowired
+    final private
     IBookService bookService;
 
-    @Autowired
+    final private
     IUserService userService;
+
+    @Autowired
+    public BookController(IBookService bookService, IUserService userService) {
+        this.bookService = bookService;
+        this.userService = userService;
+    }
 
     /**
      * Get all {@link Book}s.

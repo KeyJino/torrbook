@@ -17,8 +17,13 @@ import java.util.List;
 @Service
 public class BookService implements IBookService {
 
-    @Autowired
+    final private
     BookRepository bookRepository;
+
+    @Autowired
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     /**
      * Search book by Id.

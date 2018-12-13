@@ -16,11 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 @RequestMapping("qiwi")
-@Slf4j
 public class AuthController {
 
-    @Autowired
+    final private
     UserService userService;
+
+    @Autowired
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Main method for check authorize.
@@ -30,7 +34,6 @@ public class AuthController {
      */
     @GetMapping
     public by.intexsoft.kova.entity.User getAuthorize(Authentication authentication) {
-        log.info("Get authenticated user for front");
         return userService.findByUsername(((User) authentication.getPrincipal()).getUsername());
     }
 }

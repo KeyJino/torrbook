@@ -13,20 +13,16 @@ import Admin from "../components/Admin";
 export default class Auth extends React.Component {
 	render() {
 		const {user} = this.props.authStore;
+
 		const role = this.props.userService.checkRole;
 
 		return user == null ? <Redirect to='/torrbook/#'/> : (
 			<div>
-				<div>
 				{
 					role('USER') ? <User user={user}/> :
 						role('MODER') ? <Moder user={user}/> :
 							role('ADMIN') ? <Admin user={user}/> : null
 				}
-				</div>
-				<div>
-
-				</div>
 			</div>
 		);
 	}

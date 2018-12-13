@@ -12,8 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleService implements IRoleService {
 
-    @Autowired
+    final private
     RoleRepository roleRepository;
+
+    @Autowired
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     /**
      * Finding roles by Id.

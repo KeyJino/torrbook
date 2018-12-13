@@ -22,7 +22,7 @@ export default class RequestStore {
 	 * @param id user.
 	 */
 	loadAll(id) {
-		switch(JSON.parse(sessionStorage.getItem('user')).role.title) {
+		switch (JSON.parse(sessionStorage.getItem('user')).role.title) {
 			case('USER'):
 				fetch(REQUEST_URL + "user-" + id)
 					.then(response => response.json())
@@ -37,7 +37,8 @@ export default class RequestStore {
 					.catch(error => console.log(error.message));
 				break;
 
-			default: break;
+			default:
+				break;
 		}
 	}
 
@@ -74,8 +75,7 @@ export default class RequestStore {
 			headers: {'Content-Type': 'application/json'}
 		};
 		fetch(REQUEST_URL + 'approve-' + identity, params)
-			.then(response => response.json())
-			.then(action(request => this.request.push(request)))
+			.then(() => this.deleteHandler(identity))
 			.catch(e => console.log(e))
 	}
 
@@ -85,9 +85,22 @@ export default class RequestStore {
 	 * @returns {request} - request.
 	 */
 	changeState(identity) {
-		let request = this.requests.find(request => request.id === identity);
+		const request = this.requests.find(({id}) => id === identity);
 		request.state = true;
+
+		for (let obj of this.requests) {
+			if (obj.book.id === request.book.id) {
+				obj.book.state = false;
+			}
+		}
+
 		return request;
 	}
 
+	/**
+	 * Delete url to request.
+	 */
+	deselect() {
+		this.request = null;
+	}
 }

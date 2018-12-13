@@ -27,13 +27,10 @@ export default class UserStore {
 			.catch(error => console.log(error.message))
 	}
 
-	loadByName (username) {
-		fetch(USER_URL + "/" + username)
-			.then(response => response.json())
-			.then(action(user => this.user = user))
-			.catch(error => console.log(error.message))
-	}
-
+	/**
+	 * Downloading list users by role.
+	 * @param role_id - role from database.
+	 */
 	loadByRole(role_id) {
 		fetch(USER_URL + "/role-" + role_id)
 			.then(response => response.json())
@@ -87,6 +84,10 @@ export default class UserStore {
 		}
 	}
 
+	/**
+	 * Check some user.
+	 * @param username - current user.
+	 */
 	check(username) {
 		fetch(USER_URL + "/" + username)
 			.then(response => response.json())
@@ -94,15 +95,23 @@ export default class UserStore {
 			.catch(e => console.log(e));
 	}
 
+	/**
+	 * Banned / un-banned user by ADMIN.
+	 * @param user_id - current user.
+	 */
 	ban(user_id) {
 		fetch(USER_URL + "/ban-" + user_id)
 			.then(response => response.json())
-			.then(() => this.banHandler(user_id))
+			.then(() => this.onBanHandler(user_id))
 			.catch(e => console.log(e))
 	}
 
+	/**
+	 * Edit current user ban status.
+	 * @param user_id - current user.
+	 */
 	@action
-	banHandler(user_id) {
+	onBanHandler(user_id) {
 		const itemIndex = this.users.findIndex(({id}) => id === user_id);
 		this.users[itemIndex].status = !this.users[itemIndex].status;
 	}

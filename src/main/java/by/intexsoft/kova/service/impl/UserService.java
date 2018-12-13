@@ -17,11 +17,17 @@ import java.util.List;
 @Service
 public class UserService implements IUserService {
 
-    @Autowired
+    final private
     UserRepository userRepository;
 
-    @Autowired
+    final private
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     /**
      * Finding {@link User} in {@link UserRepository}.

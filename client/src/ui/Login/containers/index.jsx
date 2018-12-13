@@ -3,6 +3,9 @@ import {inject, observer} from "mobx-react";
 import "./index.css"
 import {Link, withRouter} from "react-router-dom";
 
+/**
+ * Login main page. Checking username and password.
+ */
 @withRouter
 @inject('authStore')
 @observer
@@ -13,10 +16,12 @@ export default class Login extends React.Component {
 		this.password = React.createRef();
 	}
 
+	/**
+	 * Sending user's information to log in.
+	 */
 	signIn() {
 		this.props.authStore.signIn(this.username.current.value, this.password.current.value);
 	}
-
 
 	render() {
 		return (
@@ -28,26 +33,29 @@ export default class Login extends React.Component {
 				</div>
 
 				<div className="login">
+					<input type="text"
+						   placeholder="Username"
+						   name="username"
+						   ref={this.username}
+						   className="input-log-text"/>
 
-					<input type="text" placeholder="Username" name="username" ref={this.username}
-					className="input-log-text"/>
-
-					<input type="password" placeholder="Password" name="password" ref={this.password}
-					className="input-log-pass"/>
+					<input type="password"
+						   placeholder="Password"
+						   name="password"
+						   ref={this.password}
+						   className="input-log-pass"/>
 
 					<input type="button"
 						   onClick={this.signIn.bind(this)}
-						   onKeyDown={(e) => e.key === '13' ? this.signIn.bind(this) : null}
 						   value="Login"
+						   className="input-log-btn"/>
 
-					className="input-log-btn"/>
-
-					<Link to="/registration"><input type="button" value="Register"
-					className="input-log-btn"/></Link>
-
-
+					<Link to="/registration">
+						<input type="button"
+							   value="Register"
+							   className="input-log-btn"/>
+					</Link>
 				</div>
-
 			</div>
 		);
 	}

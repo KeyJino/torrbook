@@ -3,6 +3,9 @@ import {Table} from "react-bootstrap";
 import {withRouter} from "react-router-dom";
 import {inject, observer} from "mobx-react/index";
 
+/**
+ * Admin table with users. Switch table header in depending from here role.
+ */
 @withRouter
 @inject('userStore', 'userService')
 @observer
@@ -13,6 +16,10 @@ export default class AdminTable extends React.Component {
 		this.onStatusBanChange = this.onStatusBanChange.bind(this);
 	}
 
+	/**
+	 * Handler to change ban status.
+	 * @param user_id current user to ban/un-ban.
+	 */
 	onStatusBanChange(user_id) {
 		this.props.userStore.ban(user_id);
 	}
@@ -21,9 +28,7 @@ export default class AdminTable extends React.Component {
 
 		const {props: {userStore: {users}}} = this;
 
-
 		return (
-
 			<Table>
 				<thead>
 				<tr>
@@ -63,11 +68,7 @@ export default class AdminTable extends React.Component {
 					)
 				}
 				</tbody>
-
 			</Table>
-
 		)
-
 	}
-
 }
