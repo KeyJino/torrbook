@@ -1,6 +1,5 @@
 package by.intexsoft.kova.service;
 
-import by.intexsoft.kova.entity.Book;
 import by.intexsoft.kova.entity.Request;
 import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.RequestRepository;
@@ -53,22 +52,19 @@ public interface IRequestService {
     void removeById(int id);
 
     /**
-     * Get all {@link Request} using {@link Book}Id.
-     *
-     * @param bookId of {@link Book}.
-     * @return List {@link Request}.
-     */
-    List<Request> findAllRequests(int bookId);
-
-    /**
      * Finding all {@link Request}s.
+     *
      * @param userId of {@link User}.
      * @return List {@link Request}.
      */
-    List<Request> findAllById(int userId);
+    List<Request> findAllByUserId(int userId);
 
-    Request findRequestByBookAndUser(Book book, User user);
-
-    List <Request> findByBookUser(User user);
+    /**
+     * Finding {@link Request}s by Book_User
+     *
+     * @param user current {@link User}.
+     * @return List of Requests.
+     */
+    List<Request> findByBookUser(User user);
 
 }

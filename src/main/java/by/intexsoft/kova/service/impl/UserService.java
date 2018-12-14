@@ -11,17 +11,27 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service for working with {@link UserRepository}.
+ */
 @Service
 public class UserService implements IUserService {
 
-    @Autowired
+    final private
     UserRepository userRepository;
 
-    @Autowired
+    final private
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     /**
      * Finding {@link User} in {@link UserRepository}.
+     *
      * @param username for searching.
      * @return finding {@link User}.
      */
@@ -32,6 +42,7 @@ public class UserService implements IUserService {
 
     /**
      * Finding {@link User} by his ID.
+     *
      * @param id this {@link User}.
      * @return
      */
@@ -42,6 +53,7 @@ public class UserService implements IUserService {
 
     /**
      * Get all {@link User}.
+     *
      * @return List {@link User}.
      */
     @Override
@@ -51,6 +63,7 @@ public class UserService implements IUserService {
 
     /**
      * Removing {@link User} how object.
+     *
      * @param user for removing.
      * @return removing {@link User}.
      */
@@ -62,6 +75,7 @@ public class UserService implements IUserService {
 
     /**
      * Removing {@link User} by ID.
+     *
      * @param id this {@link User}.
      * @return removing {@link User}.
      */
@@ -74,6 +88,7 @@ public class UserService implements IUserService {
 
     /**
      * Saving current {@link User} in {@link UserRepository}.
+     *
      * @param user for add to repository.
      * @return saving {@link User}.
      */
@@ -85,6 +100,7 @@ public class UserService implements IUserService {
 
     /**
      * Increase {@link User} counter GivenBook to +1.
+     *
      * @param user current {@link User}.
      * @return updating said {@link User}.
      */
@@ -96,6 +112,7 @@ public class UserService implements IUserService {
 
     /**
      * Increase {@link User} counter TakeBook to +1.
+     *
      * @param user current {@link User}.
      * @return updating said {@link User}.
      */
@@ -107,6 +124,7 @@ public class UserService implements IUserService {
 
     /**
      * Decrement {@link User} counter to -1.
+     *
      * @param user current {@link User}.
      * @return updating said {@link User}.
      */
@@ -118,9 +136,10 @@ public class UserService implements IUserService {
 
     /**
      * Update {@link User}.
-     * @see RecordController#remove(int)
+     *
      * @param user for saving in {@link UserRepository}.
      * @return {@link User}.
+     * @see RecordController#remove(int)
      */
     @Override
     public User update(User user) {
@@ -129,6 +148,7 @@ public class UserService implements IUserService {
 
     /**
      * Banned some user.
+     *
      * @param user current.
      * @return this user.
      */
@@ -138,6 +158,12 @@ public class UserService implements IUserService {
         return user;
     }
 
+    /**
+     * Finding {@link User} by {@link Role}.
+     *
+     * @param role current {@link Role}.
+     * @return List of {@link User}.
+     */
     @Override
     public List<User> findByRole(Role role) {
         return userRepository.findByRole(role);

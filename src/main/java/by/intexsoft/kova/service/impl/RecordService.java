@@ -20,8 +20,13 @@ import java.util.List;
 @Service
 public class RecordService implements IRecordService {
 
-    @Autowired
+    final private
     RecordRepository recordRepository;
+
+    @Autowired
+    public RecordService(RecordRepository recordRepository) {
+        this.recordRepository = recordRepository;
+    }
 
     /**
      * Finding {@link Record} in repository by ID.

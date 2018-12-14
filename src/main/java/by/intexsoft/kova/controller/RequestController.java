@@ -21,21 +21,28 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/requests")
-@Slf4j
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class RequestController {
 
-    @Autowired
+    final private
     IRequestService requestService;
 
-    @Autowired
+    final private
     IBookService bookService;
 
-    @Autowired
+    final private
     IRecordService recordService;
 
-    @Autowired
+    final private
     IUserService userService;
+
+    @Autowired
+    public RequestController(IRequestService requestService, IBookService bookService, IRecordService recordService, IUserService userService) {
+        this.requestService = requestService;
+        this.bookService = bookService;
+        this.recordService = recordService;
+        this.userService = userService;
+    }
 
     /**
      * Method for {@link Role} 'MODER'.
@@ -67,7 +74,7 @@ public class RequestController {
      */
     @PostMapping("/approve-{id}")
     public void approve(@RequestBody Request request, @PathVariable int id) {
-        requestService.save(request);
+        requestService.remove(request);
 
         Book book = bookService.changeStateById(request.book.getId());
         book.request = !book.request;
@@ -100,19 +107,6 @@ public class RequestController {
         requestService.removeById(id);
     }
 
-
-    /**
-     * Checking {@link Request}'s and returning all matches.
-     *
-     * @param id for check {@link Request}.
-     * @return List {@link Request}.
-     */
-    @GetMapping("/check-{id}")
-    @PreAuthorize("hasAuthority('USER')")
-    public List<Request> check(@PathVariable int id) {
-        return requestService.findAllRequests(id);
-    }
-
     /**
      * Loading all {@link Request} to current {@link User}.
      *
@@ -122,21 +116,19 @@ public class RequestController {
     @GetMapping("/user-{user_id}")
     @PreAuthorize("hasAuthority('USER')")
     public List<Request> loadByUserId(@PathVariable int user_id) {
-        return requestService.findAllById(user_id);
+        return requestService.findAllByUserId(user_id);
     }
 
+    /**
+     * Finding all {@link Request} for current {@link User} with {@link Role} "MODER"
+     *
+     * @param user_id current {@link User}.
+     * @return List {@link Request}.
+     */
     @GetMapping("/moder-{user_id}")
     @PreAuthorize("hasAuthority('MODER')")
     public List<Request> loadByModerId(@PathVariable int user_id) {
         User user = userService.findById(user_id);
         return requestService.findByBookUser(user);
-    }
-
-    @GetMapping("/book-{book_id}-user-{user_id}")
-    @PreAuthorize("hasAuthority('USER')")
-    public Request findRequestByBookAndUser(@PathVariable int book_id, @PathVariable int user_id) {
-        Book book = bookService.findById(book_id);
-        User user = userService.findById(user_id);
-        return requestService.findRequestByBookAndUser(book, user);
     }
 }

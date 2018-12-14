@@ -4,6 +4,7 @@ import by.intexsoft.kova.entity.Image;
 
 import java.util.List;
 
+@Deprecated
 public interface IImageService {
 
     Image findById(int id);

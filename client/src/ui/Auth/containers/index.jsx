@@ -11,13 +11,10 @@ import Admin from "../components/Admin";
 @inject('authStore', 'userService')
 @observer
 export default class Auth extends React.Component {
-
-
 	render() {
-
 		const {user} = this.props.authStore;
-		const role = this.props.userService.checkRole;
 
+		const role = this.props.userService.checkRole;
 
 		return user == null ? <Redirect to='/torrbook/#'/> : (
 			<div>

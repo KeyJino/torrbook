@@ -5,7 +5,6 @@ import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.UserRepository;
 import by.intexsoft.kova.service.IRoleService;
 import by.intexsoft.kova.service.IUserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +16,19 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
-@Slf4j
 public class UserController {
 
-    @Autowired
+    final private
     IUserService userService;
 
-    @Autowired
+    final private
     IRoleService roleService;
+
+    @Autowired
+    public UserController(IUserService userService, IRoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     /**
      * Get all {@link User}.
@@ -58,11 +62,23 @@ public class UserController {
         return user;
     }
 
+    /**
+     * Getting {@link User} by here name.
+     *
+     * @param username name for searching.
+     * @return {@link User}.
+     */
     @GetMapping("/{username}")
     public by.intexsoft.kova.entity.User isCreatedUsername(@PathVariable String username) {
         return userService.findByUsername(username);
     }
 
+    /**
+     * Banning current {@link User}.
+     *
+     * @param user_id of {@link User}.
+     * @return this user.
+     */
     @GetMapping("/ban-{user_id}")
     public User ban(@PathVariable int user_id) {
         User user = userService.findById(user_id);
@@ -70,6 +86,12 @@ public class UserController {
         return userService.update(user);
     }
 
+    /**
+     * Finding all {@link User} by {@link Role}.
+     *
+     * @param role_id for searching.
+     * @return List {@link User} with current role.
+     */
     @GetMapping("/role-{role_id}")
     public List<User> findByRole(@PathVariable int role_id) {
         Role role = roleService.findById(role_id);

@@ -2,13 +2,17 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {Link} from 'react-router-dom';
 import {Nav, Navbar, NavItem} from "react-bootstrap";
-import Request from "../../Request/containers";
 
-
+/**
+ * Header main component displayed links to route in application.
+ */
 @inject('authStore', 'userService')
 @observer
 export default class Header extends React.Component {
 
+	/**
+	 * Exit from account.
+	 */
 	logOut() {
 		this.props.authStore.logOut();
 	}
@@ -30,6 +34,7 @@ export default class Header extends React.Component {
 								</Navbar.Brand>
 								<Navbar.Toggle/>
 							</Navbar.Header>
+
 							<Navbar.Collapse>
 								<Nav>
 									<Navbar.Brand eventKey={2}>
@@ -40,7 +45,7 @@ export default class Header extends React.Component {
 										<Navbar.Brand eventKey={3}>
 											<Link to="/request"> журнал </Link>
 										</Navbar.Brand>
-										 : null
+										: null
 									}
 
 									{(role('USER') || role('MODER')) ?
@@ -56,17 +61,15 @@ export default class Header extends React.Component {
 										</Navbar.Brand>
 										: null
 									}
-
 								</Nav>
+
 								<Nav pullRight>
 									<NavItem eventKey={6} onClick={this.logOut.bind(this)}>
 										Выйти
 									</NavItem>
 								</Nav>
 							</Navbar.Collapse>
-						</Navbar>
-
-						: null
+						</Navbar> : null
 				}
 			</div>
 		);
