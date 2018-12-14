@@ -16,8 +16,13 @@ import java.util.List;
 @Service
 public class RequestService implements IRequestService {
 
-    @Autowired
+    final private
     RequestRepository requestRepository;
+
+    @Autowired
+    public RequestService(RequestRepository requestRepository) {
+        this.requestRepository = requestRepository;
+    }
 
     /**
      * Create {@link Request} from value in parameters.

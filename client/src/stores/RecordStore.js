@@ -19,7 +19,7 @@ export default class RecordStore {
 	 * @param id of UserButton.
 	 */
 	loadAll(id) {
-		switch(JSON.parse(sessionStorage.getItem('user')).role.title) {
+		switch (JSON.parse(sessionStorage.getItem('user')).role.title) {
 			case('USER'):
 				fetch(RECORD_URL + "user-" + id)
 					.then(response => response.json())
@@ -34,14 +34,8 @@ export default class RecordStore {
 					.catch(error => console.error(error.message));
 				break;
 
-			case('ADMIN'):
-				fetch(RECORD_URL)
-					.then(response => response.json())
-					.then(action(records => this.records = records))
-					.catch(error => console.error(error.message));
+			default:
 				break;
-
-			default: break;
 		}
 	}
 
@@ -65,5 +59,12 @@ export default class RecordStore {
 		if (itemIndex > -1) {
 			this.records.splice(itemIndex, 1);
 		}
+	}
+
+	/**
+	 * Delete url to request.
+	 */
+	deselect() {
+		this.record = null;
 	}
 }

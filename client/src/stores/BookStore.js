@@ -32,6 +32,10 @@ export default class BookStore {
 			.catch(error => console.log(error.message))
 	}
 
+	/**
+	 * Downloading list of books by user_id.
+	 * @param user_id
+	 */
 	loadById(user_id) {
 		fetch(BOOK_URL + '/load' + user_id)
 			.then(response => response.json())
@@ -40,14 +44,12 @@ export default class BookStore {
 	}
 
 
+	/**
+	 * Searching all Books by containing symbols.
+	 * @param title - some symbols from Book title.
+	 */
 	findBookByTitle(title) {
 		title = title.replace(/\s/g, '_');
-		// let xhr = new XMLHttpRequest();
-		// let params = title;
-
-		// console.log(params);
-		// xhr.open("GET", BOOK_URL + '/' + '&' + params, true);
-		// xhr.send();
 
 		fetch(BOOK_URL + "/" + "&" + title)
 			.then(response => response.json())
@@ -61,12 +63,15 @@ export default class BookStore {
 	createBook(title, author, user, description) {
 		const params = {
 			method: 'POST',
-			body: JSON.stringify(BookStore.generate(title,  author, user, description)),
+			body: JSON.stringify(BookStore.generate(title, author, user, description)),
 			headers: {'Content-Type': 'application/json'}
 		};
 		fetch(BOOK_URL + "/book-creating", params)
 			.then(response => response.json())
-			.then(action(book => this.books.push(book)))
+			.then(action((book) => {
+				this.books.push(book);
+				alert("Ваша книга " + book.title + " успешно добавлена!");
+			}))
 			.catch(e => console.log(e))
 	}
 
@@ -157,10 +162,7 @@ export default class BookStore {
 			headers: {'Content-Type': 'application/json'}
 		};
 		fetch(REQUEST_BOOK_URL, params)
-			.then(function (response) {
-				if (response.status === 200)
-					return response.json()
-			})
+			.then(response => response.json())
 			.catch(e => console.log(e))
 	}
 

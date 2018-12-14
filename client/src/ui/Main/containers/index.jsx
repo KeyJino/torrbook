@@ -11,18 +11,18 @@ import Record from "../../Record/containers/index";
 import Registration from "../../Registration/containers";
 import CreateBook from "../../CreateBook/containers";
 
+/**
+ * Routing in application.
+ */
 @withRouter
 @inject('authStore', 'userService')
 @observer
 export default class Main extends React.Component {
 	render() {
 
-
 		const role = this.props.userService.checkRole;
 
 		return (
-
-
 			<div>
 				<Header/>
 				{
@@ -40,11 +40,10 @@ export default class Main extends React.Component {
 							<Redirect from='*' to='/user'/>
 						</Switch>)
 						: (<Switch>
-								<Route path="/registration" component={Registration}/>
-								<Route path="/login" component={Login}/>
-								<Redirect from='*' to='/login'/>
-							</Switch>
-						)
+							<Route path="/registration" component={Registration}/>
+							<Route path="/login" component={Login}/>
+							<Redirect from='*' to='/login'/>
+						</Switch>)
 				}
 			</div>
 		)

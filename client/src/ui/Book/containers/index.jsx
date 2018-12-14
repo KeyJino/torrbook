@@ -5,7 +5,6 @@ import Pagination from "react-js-pagination"
 
 import './index.css'
 
-
 /**
  * Book component. Component content function to working with book.
  */
@@ -20,6 +19,10 @@ export default class Books extends React.Component {
 		}
 	}
 
+	/**
+	 * Handle to change page in pagination.
+	 * @param pageNumber - current number in pagination.
+	 */
 	handlePageChange(pageNumber) {
 		this.setState({activePage: pageNumber});
 	}
@@ -67,6 +70,9 @@ export default class Books extends React.Component {
 		this.props.bookStore.deselect();
 	}
 
+	/**
+	 * Restrict on length to searching word.
+	 */
 	search() {
 		let check = this.bookTitle.current.value;
 		if (check.length < 15) {
@@ -75,9 +81,7 @@ export default class Books extends React.Component {
 	}
 
 	render() {
-		const {props: {bookStore: {books}}} = this;
 		const role = this.props.userService.checkRole;
-		const {props: {requestStore: {requests}}} = this;
 
 		return (
 			<div>
@@ -89,8 +93,7 @@ export default class Books extends React.Component {
 						   onChange={() => this.search()}/>
 				</form>
 
-
-				{books.slice(this.state.activePage * 10 - 10, this.state.activePage * 10).map(
+				{this.props.bookStore.books.slice(this.state.activePage * 10 - 10, this.state.activePage * 10).map(
 					({
 						 id: book_id,
 						 title,
@@ -102,38 +105,37 @@ export default class Books extends React.Component {
 					 }) => (<div key={book_id}>
 						{
 							state === true ?
+
 								<Book
 									book_id={book_id}
 									title={title}
 									author={author}
-									bookState={state && !request ?
-										"Можно взять" : request ?
-											"В запросах" : "На руках"}
+									bookState={state && !request ? "Можно взять" : request ? "В запросах" : "На руках"}
 									image={image}
 									description={description}
-									btn={
-										role('MODER') ?
+									btn={role('MODER') ?
+
+										<div className="div-btn-book">
+											<input type="button"
+												   value="Удалить"
+												   className="book-del-inp"
+												   onClick={() =>
+													   this.props.bookStore.delete(book_id)}/>
+										</div> :
+
+
+										role('USER') ?
 											<div className="div-btn-book">
 												<input type="button"
-													   value="Удалить"
-													   className="book-del-inp"
-													   onClick={() =>
-														   this.props.bookStore.delete(book_id)}/>
-											</div> :
-
-
-											role('USER') ?
-												<div className="div-btn-book">
-													<input type="button"
-														   value="Попросить"
-														   className="book-req-inp"
-														   onClick={() => {
-															   this.addRequest(book_id);
-															   this.changeBookRequest(book_id);
-														   }}
-													/>
-												</div>
-												: null
+													   value="Попросить"
+													   className="book-req-inp"
+													   onClick={() => {
+														   this.addRequest(book_id);
+														   this.changeBookRequest(book_id);
+													   }}
+												/>
+											</div>
+											: null
 									}
 								/> : null
 						}
@@ -150,7 +152,6 @@ export default class Books extends React.Component {
 					/>
 				</div>
 			</div>
-
 		);
 	}
 }

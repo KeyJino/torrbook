@@ -6,7 +6,6 @@ import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.service.IBookService;
 import by.intexsoft.kova.service.IRecordService;
 import by.intexsoft.kova.service.IUserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -21,18 +20,24 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/records")
-@Slf4j
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class RecordController {
 
-    @Autowired
+    final private
     IBookService bookService;
 
-    @Autowired
+    final private
     IUserService userService;
 
-    @Autowired
+    final private
     IRecordService recordService;
+
+    @Autowired
+    public RecordController(IBookService bookService, IUserService userService, IRecordService recordService) {
+        this.bookService = bookService;
+        this.userService = userService;
+        this.recordService = recordService;
+    }
 
     /**
      * Getting all {@link Record}.

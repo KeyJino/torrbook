@@ -3,7 +3,9 @@ import './index.css'
 import {inject, observer} from "mobx-react/index";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
-
+/**
+ * Component to creating Book. Contain form with input for this.
+ */
 @inject('bookStore')
 @observer
 export default class CreateBook extends React.Component {
@@ -21,20 +23,34 @@ export default class CreateBook extends React.Component {
 		this.onDescriptionChange = this.onDescriptionChange.bind(this);
 	}
 
+	/**
+	 * Handler to check title, when it change.
+	 * @param e - current event this value.
+	 */
 	onTitleChange = e => {
 		this.setState({title: e.target.value})
 	};
 
+	/**
+	 * Handler to check author, when it change.
+	 * @param e - current event this value.
+	 */
 	onAuthorChange = e => {
 		this.setState({author: e.target.value})
 	};
 
+	/**
+	 * Handler to check description, when it change.
+	 * @param e - current event this value.
+	 */
 	onDescriptionChange = e => {
 		this.setState({description: e.target.value})
 	};
 
+	/**
+	 * Some handle-alert to notify MODER about creating book.
+	 */
 	handleSubmit() {
-		alert("Ваша книга " + this.state.title + " успешно добавлена!");
 		this.props.bookStore.createBook(
 			this.state.title,
 			this.state.author,
@@ -45,8 +61,6 @@ export default class CreateBook extends React.Component {
 	};
 
 	render() {
-
-
 		const text = {
 			title: "Введите название книги...",
 			author: "Введите автора книги...",
@@ -55,9 +69,7 @@ export default class CreateBook extends React.Component {
 
 		const tooltip = (text) => (
 			<Tooltip id="tooltip">
-				<strong>
-					{text}
-				</strong>
+				<strong>{text}</strong>
 			</Tooltip>
 		);
 
@@ -77,7 +89,7 @@ export default class CreateBook extends React.Component {
 							   required
 							   onChange={this.onTitleChange}
 							   value={this.state.title}
-							   pattern="^[а-яА-ЯёЁa-zA-Z0-9_ ]{1,30}"/>
+							   pattern="^[а-яА-ЯёЁa-zA-Z0-9_ ]{1,35}"/>
 					</OverlayTrigger>
 
 
@@ -98,13 +110,12 @@ export default class CreateBook extends React.Component {
 						<OverlayTrigger placement="left"
 										overlay={tooltip(text.description)}>
 						<textarea className="text-area"
-								  maxlength="200"
+								  maxLength={200}
 								  onChange={this.onDescriptionChange}
 								  value={this.state.description}
 								  required/>
 						</OverlayTrigger>
 					</div>
-
 
 					<input type="submit"
 						   value="add book"

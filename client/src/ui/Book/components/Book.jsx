@@ -1,8 +1,11 @@
 import React from 'react'
 import "./Book.css"
 
-const image  =  "resources/images/";
+const image = "resources/images/";
 
+/**
+ * Book component displayed each singly element.
+ */
 export default class Book extends React.Component {
 
 	constructor(props) {
@@ -24,9 +27,7 @@ export default class Book extends React.Component {
 						<img src={image + this.url} className="avatar" alt="avatar"/>
 						<div className="lines">
 							<h5>"{this.title}" - {this.author}</h5>
-							<p>
-								{this.description}...
-							</p>
+							<p>{this.description}...</p>
 						</div>
 						{this.btn}
 					</li>
@@ -34,5 +35,4 @@ export default class Book extends React.Component {
 			</div>
 		)
 	}
-
 }

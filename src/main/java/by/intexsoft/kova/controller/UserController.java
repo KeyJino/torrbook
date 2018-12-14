@@ -5,7 +5,6 @@ import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.UserRepository;
 import by.intexsoft.kova.service.IRoleService;
 import by.intexsoft.kova.service.IUserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +16,19 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
-@Slf4j
 public class UserController {
 
-    @Autowired
+    final private
     IUserService userService;
 
-    @Autowired
+    final private
     IRoleService roleService;
+
+    @Autowired
+    public UserController(IUserService userService, IRoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     /**
      * Get all {@link User}.
@@ -60,6 +64,7 @@ public class UserController {
 
     /**
      * Getting {@link User} by here name.
+     *
      * @param username name for searching.
      * @return {@link User}.
      */
@@ -70,6 +75,7 @@ public class UserController {
 
     /**
      * Banning current {@link User}.
+     *
      * @param user_id of {@link User}.
      * @return this user.
      */
@@ -82,6 +88,7 @@ public class UserController {
 
     /**
      * Finding all {@link User} by {@link Role}.
+     *
      * @param role_id for searching.
      * @return List {@link User} with current role.
      */

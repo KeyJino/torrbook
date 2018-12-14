@@ -31,16 +31,17 @@ export default class AuthStore {
 			headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 		};
 		fetch(CONTEXT_URL + 'login', params)
-			.then(response => response.json())
+			.then((response) => {
+				if (response.status === 200)
+					return response.json();
+			})
 			.then(action(user => {
 				if (!user.status) {
 					sessionStorage.setItem('user', JSON.stringify(user));
 					this.user = user;
 				}
 			}))
-			.catch(e => {
-				console.log(e);
-			});
+			.catch(e => alert('Incorrect login or password. Check it.'));
 	}
 
 

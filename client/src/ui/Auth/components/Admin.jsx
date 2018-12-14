@@ -6,6 +6,9 @@ import {withRouter} from "react-router-dom";
 import AdminTable from "./AdminTable";
 
 
+/**
+ * Admin start page. Contain list of all users.
+ */
 @withRouter
 @inject('userStore', 'userService')
 @observer
@@ -13,41 +16,44 @@ export default class Admin extends React.Component {
 
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			key: 1,
 			users: this.props.userStore.loadByRole(1)
 		};
-
 		this.handleSelect = this.handleSelect.bind(this);
-
 	}
 
+	/**
+	 * Handle event to swap tabs.
+	 * @param key - tab.
+	 */
 	handleSelect(key) {
 		this.setState({key});
 		this.setState({users: this.props.userStore.loadByRole(key)})
 	}
 
 	render() {
-
 		return (
 			<div>
 				<h1>Все пользователи</h1>
 				<Tabs activeKey={this.state.key}
 					  onSelect={this.handleSelect}
 					  id="controlled-tab-example">
+
 					<Tab eventKey={1} title="Users">
 						<AdminTable
 							give="Книг прочитано"
 							take="Книг взято"
 						/>
 					</Tab>
+
 					<Tab eventKey={2} title="Moders">
 						<AdminTable
-							give="Всего книг добавлено"
-							take="Книг на руках"
+							give="Книг дано"
+							take="Всего книг добавлено"
 						/>
 					</Tab>
+
 					<Tab eventKey={3} title="Admins">
 						<AdminTable
 							give=""
@@ -56,8 +62,6 @@ export default class Admin extends React.Component {
 					</Tab>
 				</Tabs>
 			</div>
-
 		);
-
 	}
 }

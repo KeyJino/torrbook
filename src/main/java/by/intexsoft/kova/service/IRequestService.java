@@ -1,6 +1,5 @@
 package by.intexsoft.kova.service;
 
-import by.intexsoft.kova.entity.Book;
 import by.intexsoft.kova.entity.Request;
 import by.intexsoft.kova.entity.User;
 import by.intexsoft.kova.repository.RequestRepository;
@@ -54,6 +53,7 @@ public interface IRequestService {
 
     /**
      * Finding all {@link Request}s.
+     *
      * @param userId of {@link User}.
      * @return List {@link Request}.
      */
@@ -65,6 +65,6 @@ public interface IRequestService {
      * @param user current {@link User}.
      * @return List of Requests.
      */
-    List <Request> findByBookUser(User user);
+    List<Request> findByBookUser(User user);
 
 }

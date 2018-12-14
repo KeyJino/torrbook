@@ -5,13 +5,15 @@ import {inject} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
+/**
+ * Main component to displayed form registration.
+ */
 @withRouter
 @inject('userStore')
 export default class Registration extends React.Component {
 
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			username: '',
 			isPresent: undefined,
@@ -20,7 +22,6 @@ export default class Registration extends React.Component {
 			confirm: '',
 			role: '1'
 		};
-
 		this.onUsernameChange = this.onUsernameChange.bind(this);
 		this.onEmailChange = this.onEmailChange.bind(this);
 		this.onPassChange = this.onPassChange.bind(this);
@@ -28,6 +29,9 @@ export default class Registration extends React.Component {
 		this.check = this.check.bind(this);
 	}
 
+	/**
+	 * If submit is successfully - register user in application.
+	 */
 	register() {
 		this.props.userStore.create(
 			this.state.username,
@@ -35,45 +39,80 @@ export default class Registration extends React.Component {
 			this.state.role);
 	}
 
+	/**
+	 * When handle submit.
+	 */
 	handleSubmit() {
 		alert("Ваш аккаунт " + this.state.username + " успешно создан!");
 		this.register();
 		this.props.history.push('/login');
 	};
 
+	/**
+	 * Handle when username changing.
+	 * @param e - event to changing.
+	 */
 	onUsernameChange = e => {
 		this.check();
 		this.setState({username: e.target.value})
 	};
 
+	/**
+	 * Handle when email changing.
+	 * @param e - event to changing.
+	 */
 	onEmailChange = e => {
 		this.setState({email: e.target.value})
 	};
 
+	/**
+	 * Handle when pass changing.
+	 * @param e - event to changing.
+	 */
 	onPassChange = e => {
 		this.setState({pass: e.target.value});
 	};
 
+	/**
+	 * Handle when pass changing.
+	 * @param e - event to changing.
+	 */
 	onConfirmChange = e => {
 		this.setState({confirm: e.target.value});
 	};
 
+	/**
+	 * Handle when role changing.
+	 * @param e - event to changing.
+	 */
 	onRoleChanged = e => {
 		this.setState({role: e.target.value})
 	};
 
+	/**
+	 * Setting null username.
+	 */
 	setNullUsername() {
 		this.setState({username: ''});
 	}
 
+	/**
+	 * Need to check username on repeat in application.
+	 */
 	setNullPresent() {
 		this.setState({isPresent: ''});
 	}
 
+	/**
+	 * Setting null password.
+	 */
 	setNullPassword() {
 		this.setState({confirm: ''});
 	}
 
+	/**
+	 * Checking username to repeat.
+	 */
 	check() {
 		this.setState({isPresent: this.props.userStore.username},
 			() => {
@@ -100,17 +139,13 @@ export default class Registration extends React.Component {
 
 		const tooltip = (text) => (
 			<Tooltip id="tooltip">
-				<strong>
-					{text}
-				</strong>
+				<strong>{text}</strong>
 			</Tooltip>
 		);
 
 		return <div>
-
 			<div className="body-reg"/>
 			<div className="grad-reg"/>
-
 			<form className="reg-form"
 				  onSubmit={
 					  this.state.pass === this.state.confirm
